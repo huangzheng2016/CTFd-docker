@@ -13,3 +13,16 @@
 git clone https://github.com/huangzheng2016/CTFd-docker CTFd
 sudo sh CTFd/install.sh
 ```
+
+虽然还是建议大家自己安装，别直接脚本，以免出现配置不正确
+
+请在root权限下执行
+
+```
+apt-get install git install docker docker-compose -y
+git clone https://github.com/huangzheng2016/CTFd-docker CTFd
+docker swarm init
+docker node update --label-add='name=linux-1' $(docker node ls -q)
+docker-compose -f CTFd/docker-compose.yml up -d
+docker-compose -f CTFd/docker-compose.yml exec ctfd python manage.py set_config whale auto_connect_network
+```
