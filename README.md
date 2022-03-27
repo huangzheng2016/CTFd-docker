@@ -19,7 +19,7 @@ sudo sh CTFd/install.sh
 请在root权限下执行
 
 ```
-apt-get install git install docker docker-compose -y
+apt-get install git docker docker-compose -y
 git clone https://github.com/huangzheng2016/CTFd-docker CTFd
 docker swarm init
 docker node update --label-add='name=linux-1' $(docker node ls -q)
