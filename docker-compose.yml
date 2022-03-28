@@ -26,6 +26,7 @@ services:
     networks:
         default:
         internal:
+
   nginx:
     image: nginx:1.17
     restart: always
@@ -35,6 +36,7 @@ services:
       - 80:80
     depends_on:
       - ctfd
+
   db:
     image: mariadb:10.4.12
     restart: always
@@ -47,6 +49,7 @@ services:
       - .data/mysql:/var/lib/mysql
     networks:
         internal:
+    # This command is required to set important mariadb defaults
     command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
 
   cache:
@@ -58,30 +61,20 @@ services:
         internal:
 
   frpc:
-    image: frankli0324/frp:frpc
+    image: snowdreamtech/frpc
     restart: always
-    command: [
-      "--server_addr=frps",
-      "--server_port=7000",
-      "--token=your_token",
-      "--admin_addr=0.0.0.0",
-      "--admin_port=7400",
-    ]
+    volumes:
+      - .frpc:/etc/frp/
     networks:
       frp:
       internal:
       containers:
 
   frps:
-    image: frankli0324/frp:frps
+    image: snowdreamtech/frps
     restart: always
-    command: [
-      "--bind_addr=0.0.0.0",
-      "--bind_port=7000",
-      "--token=your_token",
-      "--subdomain_host=ctfd-node.hz2016.cn",
-      "--vhost_http_port=8009",
-    ]
+    volumes:
+      - .frps:/etc/frp/
     ports:
       - 8009:8009
     networks:
