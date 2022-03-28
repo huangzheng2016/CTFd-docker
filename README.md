@@ -26,3 +26,11 @@ docker node update --label-add='name=linux-1' $(docker node ls -q)
 docker-compose -f CTFd/docker-compose.yml up -d
 docker-compose -f CTFd/docker-compose.yml exec ctfd python manage.py set_config whale auto_connect_network
 ```
+
+## 更新日志
+
+2022.3.27
+>初版提交
+
+2022.3.28
+>更新Frp服务器并重载404页面

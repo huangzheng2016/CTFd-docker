@@ -80,4 +80,8 @@ node_modules/
 
 # Flask Profiler files
 flask_profiler.sql
+
 .github/
+
+.htaccess
+.user.ini
