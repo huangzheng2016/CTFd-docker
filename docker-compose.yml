@@ -1,5 +1,4 @@
 version: '3.7'
-
 services:
   ctfd:
     build: .
@@ -49,7 +48,6 @@ services:
       - .data/mysql:/var/lib/mysql
     networks:
         internal:
-    # This command is required to set important mariadb defaults
     command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
 
   cache:
@@ -61,7 +59,7 @@ services:
         internal:
 
   frpc:
-    image: snowdreamtech/frpc
+    image: snowdreamtech/frpc:0.41.0
     restart: always
     volumes:
       - .frpc:/etc/frp/
@@ -71,7 +69,7 @@ services:
       containers:
 
   frps:
-    image: snowdreamtech/frps
+    image: snowdreamtech/frps:0.41.0
     restart: always
     volumes:
       - .frps:/etc/frp/

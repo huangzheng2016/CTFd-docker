@@ -85,3 +85,4 @@ flask_profiler.sql
 
 .htaccess
 .user.ini
+docker-compose-used.yml
