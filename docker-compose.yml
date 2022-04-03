@@ -75,6 +75,7 @@ services:
       - .frps:/etc/frp/
     ports:
       - 8009:8009
+      - 9000-9050:9000-9050
     networks:
       frp:
       default:
