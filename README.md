@@ -33,4 +33,9 @@ docker-compose -f CTFd/docker-compose.yml exec ctfd python manage.py set_config 
 >初版提交
 
 2022.3.28
+
 >更新Frp服务器并重载404页面
+
+2022.4.4
+
+> 更新Frpc服务器，并且增加对direct模式下端口映射的支持
