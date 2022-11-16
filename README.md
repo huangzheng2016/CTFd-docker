@@ -38,4 +38,7 @@ docker-compose -f CTFd/docker-compose.yml exec ctfd python manage.py set_config 
 
 2022.4.4
 
-> 更新Frpc服务器，并且增加对direct模式下端口映射的支持
+>更新Frpc服务器，并且增加对direct模式下端口映射的支持
+
+2022.11.17
+>更新Stable源 
