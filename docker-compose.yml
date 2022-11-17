@@ -62,7 +62,7 @@ services:
     image: snowdreamtech/frpc:0.41.0
     restart: always
     volumes:
-      - frpc:/etc/frp/
+      - .frpc:/etc/frp/
     networks:
       frp:
       internal:
@@ -72,7 +72,7 @@ services:
     image: snowdreamtech/frps:0.41.0
     restart: always
     volumes:
-      - frps:/etc/frp/
+      - .frps:/etc/frp/
     ports:
       - 8009:8009
       - 9000-9050:9000-9050
