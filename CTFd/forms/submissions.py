@@ -9,14 +9,14 @@ class SubmissionSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("provided", "提交者"),
+            ("provided", "Provided"),
             ("id", "ID"),
-            ("account_id", "账户ID"),
-            ("challenge_id", "挑战者ID"),
-            ("challenge_name", "用户名称"),
+            ("account_id", "Account ID"),
+            ("challenge_id", "Challenge ID"),
+            ("challenge_name", "Challenge Name"),
         ],
         default="provided",
         validators=[InputRequired()],
     )
-    q = StringField("参数", validators=[InputRequired()])
-    submit = SubmitField("搜索")
+    q = StringField("Parameter", validators=[InputRequired()])
+    submit = SubmitField("Search")

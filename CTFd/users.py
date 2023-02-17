@@ -18,16 +18,8 @@ users = Blueprint("users", __name__)
 def listing():
     q = request.args.get("q")
     field = request.args.get("field", "name")
-    field_CN_kv = {
-        "name": "用户名",
-        "affiliation": "单位/组织",
-        "website": "Blog/网站"
-    }
     if field not in ("name", "affiliation", "website"):
         field = "name"
-        field_CN = "用户名"
-    else:
-        field_CN = field_CN_kv.get(field)
 
     filters = []
     if q:
@@ -50,7 +42,6 @@ def listing():
         next_page=url_for(request.endpoint, page=users.next_num, **args),
         q=q,
         field=field,
-        field_CN=field_CN
     )
 
 

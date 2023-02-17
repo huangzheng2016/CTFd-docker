@@ -6,21 +6,21 @@ from CTFd.forms.fields import SubmitField
 
 
 class NotificationForm(BaseForm):
-    title = StringField("标题", description="公告标题")
+    title = StringField("Title", description="Notification title")
     content = TextAreaField(
-        "公告内容",
-        description="公告内容，支持HTML和markdown语法.",
+        "Content",
+        description="Notification contents. Can consist of HTML and/or Markdown.",
     )
     type = RadioField(
-        "公告类型",
-        choices=[("toast", "右下角小窗提示"), ("alert", "弹窗提示"), ("background", "不提示")],
+        "Notification Type",
+        choices=[("toast", "Toast"), ("alert", "Alert"), ("background", "Background")],
         default="toast",
-        description="用户收到的公告类型",
+        description="What type of notification users receive",
         validators=[InputRequired()],
     )
     sound = BooleanField(
-        "提示音",
+        "Play Sound",
         default=True,
-        description="当用户收到新公告的时候，播放提示音",
+        description="Play sound for users when they receive the notification",
     )
-    submit = SubmitField("发布")
+    submit = SubmitField("Submit")

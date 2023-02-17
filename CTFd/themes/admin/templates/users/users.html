@@ -6,37 +6,37 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>用户
-			<span class="create-team" role="button" data-toggle="tooltip" title="Create User">
+        <h1>Users
+            <span class="create-team" role="button" data-toggle="tooltip" title="Create User">
 				<a href="{{ url_for('admin.users_new') }}" style="color: inherit;">
 					<i class="btn-fa fas fa-plus-circle"></i>
 				</a>
 			</span>
-		</h1>
-	</div>
+        </h1>
+    </div>
 </div>
 
 <div class="container">
 
 	<div class="row">
-		<div class="col-md-12">
-			{% if q and field %}
-			<h5 class="text-muted text-center">
-				搜索字段 <strong>{{ field_CN }}</strong> 为 <strong>{{ q }}</strong> 的结果
-			</h5>
-			<h6 class="text-muted text-center pb-3">
-				第 {{ users.page }} 页，共 {{ users.total }} 条结果
-			</h6>
-			{% endif %}
+        <div class="col-md-12">
+            {% if q and field %}
+            <h5 class="text-muted text-center">
+                Searching for users with <strong>{{ field }}</strong> matching <strong>{{ q }}</strong>
+            </h5>
+            <h6 class="text-muted text-center pb-3">
+                Page {{ users.page }} of {{ users.total }} results
+            </h6>
+            {% endif %}
 
-			{% with form = Forms.users.UserSearchForm(field=field, q=q) %}
-			<form method="GET" class="form-inline">
-				<div class="form-group col-md-2">
-					{{ form.field(class="form-control custom-select w-100") }}
-				</div>
-				<div class="form-group col-md-8">
-					{{ form.q(class="form-control w-100", placeholder="搜索匹配的用户") }}
-				</div>
+            {% with form = Forms.users.UserSearchForm(field=field, q=q) %}
+            <form method="GET" class="form-inline">
+                <div class="form-group col-md-2">
+                    {{ form.field(class = "form-control custom-select w-100") }}
+                </div>
+                <div class="form-group col-md-8">
+                    {{ form.q(class = "form-control w-100", placeholder = "Search for matching users") }}
+                </div>
 				<div class="form-group col-md-2">
 					<button type="submit" class="btn btn-primary w-100">
 						<i class="fas fa-search" aria-hidden="true"></i>
@@ -52,45 +52,48 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="float-right pb-3">
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" title="编辑用户" id="users-edit-button">
-						<i class="btn-fa fas fa-pencil-alt"></i>
-					</button>
-					<button type="button" class="btn btn-outline-danger" data-toggle="tooltip" title="删除用户" id="users-delete-button">
-						<i class="btn-fa fas fa-trash-alt"></i>
-					</button>
-				</div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" title="Edit Users"
+                            id="users-edit-button">
+                        <i class="btn-fa fas fa-pencil-alt"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="tooltip" title="Delete Users"
+                            id="users-delete-button">
+                        <i class="btn-fa fas fa-trash-alt"></i>
+                    </button>
+                </div>
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<table id="teamsboard" class="table table-striped border">
-				<thead>
-					<tr>
-						<th class="border-right" data-checkbox>
-							<div class="form-check text-center">
-								<input type="checkbox" class="form-check-input" data-checkbox-all>&nbsp;
-							</div>
-						</th>
-						<th class="sort-col text-center"><b>ID</b></th>
-						<th class="sort-col text-center"><b>用户名</b></th>
-						<th class="d-md-table-cell d-lg-table-cell sort-col text-center"><b>邮箱</b></th>
-						<th class="sort-col text-center"><b>地区</b></th>
-						<th class="sort-col text-center px-0"><b>管理</b></th>
-						<th class="sort-col text-center px-0"><b>邮箱认证</b></th>
-						<th class="sort-col text-center px-0"><b>是否隐藏</b></th>
-						<th class="sort-col text-center px-0"><b>是否封禁</b></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for user in users.items %}
-					<tr name="{{ user.id }}" data-href="{{ url_for('admin.users_detail', user_id=user.id) }}">
-						<td class="border-right" data-checkbox>
-							<div class="form-check text-center">
-								<input type="checkbox" class="form-check-input" value="{{ user.id }}" data-user-id="{{ user.id }}">&nbsp;
-							</div>
-						</td>
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table id="teamsboard" class="table table-striped border">
+                <thead>
+                <tr>
+                    <th class="border-right" data-checkbox>
+                        <div class="form-check text-center">
+                            <input type="checkbox" class="form-check-input" autocomplete="off" data-checkbox-all>&nbsp;
+                        </div>
+                    </th>
+                    <th class="sort-col text-center"><b>ID</b></th>
+                    <th class="sort-col text-center"><b>User</b></th>
+                    <th class="sort-col text-center"><b>Email</b></th>
+                    <th class="sort-col text-center"><b>Country</b></th>
+                    <th class="sort-col text-center px-0"><b>Admin</b></th>
+                    <th class="sort-col text-center px-0"><b>Verified</b></th>
+                    <th class="sort-col text-center px-0"><b>Hidden</b></th>
+                    <th class="sort-col text-center px-0"><b>Banned</b></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users.items %}
+                <tr name="{{ user.id }}" data-href="{{ url_for('admin.users_detail', user_id=user.id) }}">
+                    <td class="border-right" data-checkbox>
+                        <div class="form-check text-center">
+                            <input type="checkbox" class="form-check-input" autocomplete="off" value="{{ user.id }}"
+                                   data-user-id="{{ user.id }}">&nbsp;
+                        </div>
+                    </td>
 						<td class="team-id text-center" value="{{ user.id }}">{{ user.id }}</td>
 						<td class="team-name" value="{{ user.name }}">
 							<a href="{{ url_for('admin.users_detail', user_id=user.id) }}">
@@ -126,45 +129,45 @@
 						</td>
 						<td class="team-admin d-md-table-cell d-lg-table-cell text-center" value="{{ user.type }}">
 							{% if user.type == 'admin' %}
-								<span class="badge badge-primary">管理</span>
+                            <span class="badge badge-primary">admin</span>
 							{% endif %}
 						</td>
 						<td class="team-verified d-md-table-cell d-lg-table-cell text-center" value="{{ user.verified }}">
 							{% if user.verified %}
-								<span class="badge badge-success">已认证</span>
+                            <span class="badge badge-success">verified</span>
 							{% endif %}
 						</td>
 						<td class="team-hidden d-md-table-cell d-lg-table-cell text-center" value="{{ user.hidden }}">
 							{% if user.hidden %}
-								<span class="badge badge-danger">隐藏</span>
+                            <span class="badge badge-danger">hidden</span>
 							{% endif %}
 						</td>
-						<td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ user.banned }}">
-							{% if user.banned %}
-								<span class="badge badge-danger">封禁</span>
-							{% endif %}
-						</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			{% if users.pages > 1 %}
-			<div class="text-center">页码
-				<br>
-				{% if users.page != 1 %}
-				<a href="{{ prev_page }}">&lt;&lt;&lt;</a>
-				{% endif %}
-				<select class="page-select">
-					{% for page in range(1, users.pages + 1) %}
-					<option {% if users.page == page %}selected{% endif %}>{{ page }}</option>
-					{% endfor %}
-				</select>
-				{% if users.next_num %}
-				<a href="{{ next_page }}">&gt;&gt;&gt;</a>
-				{% endif %}
-			</div>
-			{% endif %}
-		</div>
+                    <td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ user.banned }}">
+                        {% if user.banned %}
+                        <span class="badge badge-danger">banned</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if users.pages > 1 %}
+            <div class="text-center">Page
+                <br>
+                {% if users.page != 1 %}
+                <a href="{{ prev_page }}">&lt;&lt;&lt;</a>
+                {% endif %}
+                <select class="page-select">
+                    {% for page in range(1, users.pages + 1) %}
+                    <option {% if users.page== page %}selected{% endif %}>{{ page }}</option>
+                    {% endfor %}
+                </select>
+                {% if users.next_num %}
+                <a href="{{ next_page }}">&gt;&gt;&gt;</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
 	</div>
 </div>
 {% endblock %}

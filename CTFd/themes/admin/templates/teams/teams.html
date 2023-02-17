@@ -34,8 +34,8 @@
 					{{ form.field(class="form-control custom-select w-100") }}
 				</div>
 				<div class="form-group col-md-8">
-					{{ form.q(class="form-control w-100", placeholder="搜索匹配的团队") }}
-				</div>
+                    {{ form.q(class = "form-control w-100", placeholder = "Search for matching teams") }}
+                </div>
 				<div class="form-group col-md-2">
 					<button type="submit" class="btn btn-primary w-100">
 						<i class="fas fa-search" aria-hidden="true"></i>
@@ -63,31 +63,32 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-12">
-			<table id="teamsboard" class="table table-striped border">
-				<thead>
-					<tr>
-						<th class="border-right" data-checkbox>
-							<div class="form-check text-center">
-								<input type="checkbox" class="form-check-input" data-checkbox-all>&nbsp;
-							</div>
-						</th>
-						<th class="sort-col text-center"><b>ID</b></th>
-						<th class="sort-col text-left"><b>Team</b></th>
-						<th class="sort-col text-center"><b>Country</b></th>
-						<th class="sort-col text-center px-0"><b>Hidden</b></th>
-						<th class="sort-col text-center px-0"><b>Banned</b></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for team in teams.items %}
-					<tr name="{{ team.id }}" data-href="{{ url_for('admin.teams_detail', team_id=team.id) }}">
-						<td class="border-right" data-checkbox>
-							<div class="form-check text-center">
-								<input type="checkbox" class="form-check-input" value="{{ team.id }}" data-team-id="{{ team.id }}">&nbsp;
-							</div>
-						</td>
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table id="teamsboard" class="table table-striped border">
+                <thead>
+                <tr>
+                    <th class="border-right" data-checkbox>
+                        <div class="form-check text-center">
+                            <input type="checkbox" class="form-check-input" autocomplete="off" data-checkbox-all>&nbsp;
+                        </div>
+                    </th>
+                    <th class="sort-col text-center"><b>ID</b></th>
+                    <th class="sort-col text-left"><b>Team</b></th>
+                    <th class="sort-col text-center"><b>Country</b></th>
+                    <th class="sort-col text-center px-0"><b>Hidden</b></th>
+                    <th class="sort-col text-center px-0"><b>Banned</b></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for team in teams.items %}
+                <tr name="{{ team.id }}" data-href="{{ url_for('admin.teams_detail', team_id=team.id) }}">
+                    <td class="border-right" data-checkbox>
+                        <div class="form-check text-center">
+                            <input type="checkbox" class="form-check-input" value="{{ team.id }}" autocomplete="off"
+                                   data-team-id="{{ team.id }}">&nbsp;
+                        </div>
+                    </td>
 						<td class="team-id text-center" value="{{ team.id }}">{{ team.id }}</td>
 						<td class="team-name" value="{{ team.name }}">
 							<a href="{{ url_for('admin.teams_detail', team_id=team.id) }}">
@@ -127,32 +128,32 @@
 							{% endif %}
 						</td>
 
-						<td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ team.banned }}">
-							{% if team.banned %}
-								<span class="badge badge-danger">banned</span>
-							{% endif %}
-						</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			{% if teams.pages > 1 %}
-			<div class="text-center">页码
-				<br>
-				{% if teams.page != 1 %}
-				<a href="{{ prev_page }}">&lt;&lt;&lt;</a>
-				{% endif %}
-				<select class="page-select">
-					{% for page in range(1, teams.pages + 1) %}
-					<option {% if teams.page == page %}selected{% endif %}>{{ page }}</option>
-					{% endfor %}
-				</select>
-				{% if teams.next_num %}
-				<a href="{{ next_page }}">&gt;&gt;&gt;</a>
-				{% endif %}
-			</div>
-			{% endif %}
-		</div>
+                    <td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ team.banned }}">
+                        {% if team.banned %}
+                        <span class="badge badge-danger">banned</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if teams.pages > 1 %}
+            <div class="text-center">Page
+                <br>
+                {% if teams.page != 1 %}
+                <a href="{{ prev_page }}">&lt;&lt;&lt;</a>
+                {% endif %}
+                <select class="page-select">
+                    {% for page in range(1, teams.pages + 1) %}
+                    <option {% if teams.page== page %}selected{% endif %}>{{ page }}</option>
+                    {% endfor %}
+                </select>
+                {% if teams.next_num %}
+                <a href="{{ next_page }}">&gt;&gt;&gt;</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
 	</div>
 </div>
 {% endblock %}

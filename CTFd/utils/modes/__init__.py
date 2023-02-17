@@ -38,10 +38,4 @@ def get_mode_as_word(plural=False, capitalize=False):
         word += "s"
     if capitalize:
         word = word.title()
-        if word == "User":
-            word = "用户"
-        elif word == "Team":
-            word = "团队"
-        else:
-            word = word
     return word

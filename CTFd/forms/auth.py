@@ -14,10 +14,12 @@ from CTFd.forms.users import (
 
 def RegistrationForm(*args, **kwargs):
     class _RegistrationForm(BaseForm):
-        name = StringField("用户名", validators=[InputRequired()])
-        email = EmailField("邮箱", validators=[InputRequired()])
-        password = PasswordField("密码", validators=[InputRequired()])
-        submit = SubmitField("注册")
+        name = StringField(
+            "User Name", validators=[InputRequired()], render_kw={"autofocus": True}
+        )
+        email = EmailField("Email", validators=[InputRequired()])
+        password = PasswordField("Password", validators=[InputRequired()])
+        submit = SubmitField("Submit")
 
         @property
         def extra(self):
@@ -32,20 +34,28 @@ def RegistrationForm(*args, **kwargs):
 
 
 class LoginForm(BaseForm):
-    name = StringField("用户名或邮箱", validators=[InputRequired()])
-    password = PasswordField("密码", validators=[InputRequired()])
-    submit = SubmitField("登录")
+    name = StringField(
+        "User Name or Email",
+        validators=[InputRequired()],
+        render_kw={"autofocus": True},
+    )
+    password = PasswordField("Password", validators=[InputRequired()])
+    submit = SubmitField("Submit")
 
 
 class ConfirmForm(BaseForm):
-    submit = SubmitField("重新发送重置密码邮件")
+    submit = SubmitField("Resend Confirmation Email")
 
 
 class ResetPasswordRequestForm(BaseForm):
-    email = EmailField("邮箱", validators=[InputRequired()])
-    submit = SubmitField("发送")
+    email = EmailField(
+        "Email", validators=[InputRequired()], render_kw={"autofocus": True}
+    )
+    submit = SubmitField("Submit")
 
 
 class ResetPasswordForm(BaseForm):
-    password = PasswordField("新密码", validators=[InputRequired()])
-    submit = SubmitField("重置")
+    password = PasswordField(
+        "Password", validators=[InputRequired()], render_kw={"autofocus": True}
+    )
+    submit = SubmitField("Submit")

@@ -2,9 +2,10 @@
 	<form id="user-mode-form" method="POST" autocomplete="off" class="w-100 custom-config-form">
 		<div class="form-group">
 			<label for="ctf_name">
-				用户模式
-				<small class="form-text text-muted">控制用户是以团队形式加入游戏（团队模式）还是以自己的身份参与游戏（个人模式）</small>
-			</label>
+                User Mode
+                <small class="form-text text-muted">Controls whether users join together in teams to play (Team Mode) or
+                    play as themselves (User Mode)</small>
+            </label>
 
 			<div class="row pt-3">
 				<div class="col-md-6">
@@ -16,14 +17,14 @@
 									<div class="form-check">
 										<input class="form-check-input card-radio-clone" type="radio" style="visibility: hidden;" checked>
 										<span class="form-check-label text-center">
-											<h5>团队模式</h5>
+											<h5>Team Mode</h5>
 										</span>
 										<ul class="p-0 small">
-											<li>参与者注册账户并组成小队</li>
-											<li>如果团队中的某个成员完成了一个挑战，整个团队都会获得积分</li>
+											<li>Participants register accounts and form teams</li>
+											<li>If a team member solves a challenge, the entire team receives credit</li>
 											<br>
-											<li>更容易看到哪个团队成员完成了挑战</li>
-											<li>但是管理员可能更难去管理</li>
+											<li>Easier to see which team member solved a challenge</li>
+											<li>May be slightly more difficult to administer</li>
 										</ul>
 									</div>
 								</span>
@@ -40,14 +41,14 @@
 									<div class="form-check">
 										<input class="form-check-input card-radio-clone" type="radio" style="visibility: hidden;" checked>
 										<span class="form-check-label text-center">
-											<h5>个人模式</h5>
+											<h5>User Mode</h5>
 										</span>
 										<ul class="p-0 small">
-											<li>参与者仅能注册自己的个人账户</li>
-											<li>玩家可以共享账户以组成虚拟团队</li>
+											<li>Participants only register an individual account</li>
+											<li>Players can share accounts to form pseudo-teams</li>
 											<br>
-											<li>更容易组织和管理</li>
-											<li>将解决方案定位到单个团队成员是困难的</li>
+											<li>Easier to organize</li>
+											<li>Difficult to attribute solutions to individual team members</li>
 										</ul>
 									</div>
 								</span>
@@ -58,15 +59,16 @@
 			</div>
 		</div>
 
-		<div class="alert alert-danger text-center" role="alert">
-			<p>
-				<strong>更改用户模式将删除用户执行操作的所有提交和记录</strong>
-				<br><small>(提交, 奖项, 解锁, 追踪)</small>
-			</p>
-		</div>
+        <div class="alert alert-danger text-center" role="alert">
+            <p>
+                <strong>Changing your user mode will also delete all submissions or records that a user took an
+                    action.</strong>
+                <br><small>(Submissions, Awards, Unlocks, Tracking)</small>
+            </p>
+        </div>
 
 		<button type="submit" class="btn btn-md btn-primary float-right">
-			更新
+            Update
 		</button>
 	</form>
 </div>

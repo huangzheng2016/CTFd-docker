@@ -2,17 +2,20 @@
   <div>
     <div>
       <HintCreationForm
-        ref="HintCreationForm"
-        :challenge_id="challenge_id"
-        @refreshHints="refreshHints"
+          ref="HintCreationForm"
+          :challenge_id="challenge_id"
+          :hints="hints"
+          @refreshHints="refreshHints"
       />
     </div>
 
     <div>
       <HintEditForm
-        ref="HintEditForm"
-        :hint_id="editing_hint_id"
-        @refreshHints="refreshHints"
+          ref="HintEditForm"
+          :challenge_id="challenge_id"
+          :hint_id="editing_hint_id"
+          :hints="hints"
+          @refreshHints="refreshHints"
       />
     </div>
 

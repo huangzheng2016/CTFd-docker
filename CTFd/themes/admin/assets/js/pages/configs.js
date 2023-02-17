@@ -356,15 +356,10 @@ function importConfig(event) {
     },
     success: function(_data) {
       pg = ezProgressBar({
-        target: pg,
-        width: 100
+          target: pg,
+          width: 100
       });
-      setTimeout(function() {
-        pg.modal("hide");
-      }, 500);
-      setTimeout(function() {
-        window.location.reload();
-      }, 700);
+        location.href = CTFd.config.urlRoot + "/admin/import";
     }
   });
 }
@@ -459,9 +454,8 @@ $(() => {
         case "radio":
         case "checkbox":
           ctrl.each(function() {
-            if ($(this).attr("value") == value) {
               $(this).attr("checked", value);
-            }
+              $(this).attr("value", value);
           });
           break;
         default:

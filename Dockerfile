@@ -34,8 +34,10 @@ RUN adduser \
     --gecos "" \
     --shell /bin/bash \
     ctfd
-RUN chmod +x /opt/CTFd/docker-entrypoint.sh \
+RUN chmod +x /opt/CTFd/docker-entrypoint.sh /opt/CTFd/sed.sh \
     && chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads
+
+RUN sh sed.sh
 
 USER 1001
 EXPOSE 8000

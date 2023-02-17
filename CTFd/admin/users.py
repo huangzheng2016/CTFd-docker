@@ -16,14 +16,6 @@ def users_listing():
     page = abs(request.args.get("page", 1, type=int))
     filters = []
     users = []
-    field_CN_kv = {
-        "name": "用户名",
-        "affiliation": "单位/组织",
-        "website": "Blog/网站",
-        "id": "ID",
-        "email": "邮箱",
-        "ip": "IP地址"
-    }
 
     if q:
         # The field exists as an exposed column
@@ -47,11 +39,6 @@ def users_listing():
     args = dict(request.args)
     args.pop("page", 1)
 
-    if field_CN_kv.get(field):
-        field_CN = field_CN_kv.get(field)
-    else:
-        field_CN = field
-
     return render_template(
         "admin/users/users.html",
         users=users,
@@ -59,7 +46,6 @@ def users_listing():
         next_page=url_for(request.endpoint, page=users.next_num, **args),
         q=q,
         field=field,
-        field_CN=field_CN
     )
 
 

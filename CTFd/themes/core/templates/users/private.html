@@ -46,17 +46,17 @@
 			{% endfor %}
 
 			<div>
-				<h2 class="text-center">
-					{% if account.place %}
-						<small>排名</small> {{ account.place }}
-					{% endif %}
-				</h2>
-				<h2 class="text-center">
-					{% if account.place %}
-						<small>得分</small> {{ account.score }}
-					{% endif %}
-				</h2>
-			</div>
+                <h2 class="text-center">
+                    {% if account.place %}
+                    {{ account.place }} <small>place</small>
+                    {% endif %}
+                </h2>
+                <h2 class="text-center">
+                    {% if account.place %}
+                    {{ account.score }} <small>points</small>
+                    {% endif %}
+                </h2>
+            </div>
 
 			<div class="pt-3">
 				{% if user.website %}
@@ -103,7 +103,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h3>奖项</h3>
+                    <h3>Awards</h3>
 				</div>
 				{% for award in awards %}
 					<div class="col-md-3 col-sm-6">
@@ -123,16 +123,16 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h3>完成的挑战</h3>
+                    <h3>Solves</h3>
 					<table class="table table-striped">
-						<thead>
-						<tr>
-							<td><b>挑战</b></td>
-							<td class="d-none d-md-block d-lg-block"><b>类别</b></td>
-							<td><b>分值</b></td>
-							<td><b>完成时间</b></td>
-						</tr>
-						</thead>
+                        <thead>
+                        <tr>
+                            <td><b>Challenge</b></td>
+                            <td class="d-none d-md-block d-lg-block"><b>Category</b></td>
+                            <td><b>Value</b></td>
+                            <td><b>Time</b></td>
+                        </tr>
+                        </thead>
 						<tbody>
 						{% for solve in solves %}
 							<tr>
@@ -154,9 +154,9 @@
 			</div>
 		{% else %}
 			<div class="row min-vh-25">
-				<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
-					没有完成任何挑战
-				</h3>
+                <h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
+                    No solves yet
+                </h3>
 			</div>
 		{% endif %}
 	</div>

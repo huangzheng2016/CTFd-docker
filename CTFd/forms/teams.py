@@ -164,10 +164,10 @@ class TeamSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("name", "用户名"),
+            ("name", "Name"),
             ("id", "ID"),
-            ("affiliation", "单位/组织"),
-            ("website", "Blog/网站"),
+            ("affiliation", "Affiliation"),
+            ("website", "Website"),
         ],
         default="name",
         validators=[InputRequired()],
@@ -180,9 +180,9 @@ class PublicTeamSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("name", "用户名"),
-            ("affiliation", "单位/组织"),
-            ("website", "Blog/网站"),
+            ("name", "Name"),
+            ("affiliation", "Affiliation"),
+            ("website", "Website"),
         ],
         default="name",
         validators=[InputRequired()],

@@ -25,7 +25,7 @@ class UserSchema(ma.ModelSchema):
         required=True,
         allow_none=False,
         validate=[
-            validate.Length(min=1, max=128, error="用户名不能为空")
+            validate.Length(min=1, max=128, error="User names must not be empty")
         ],
     )
     email = field_for(
@@ -33,8 +33,8 @@ class UserSchema(ma.ModelSchema):
         "email",
         allow_none=False,
         validate=[
-            validate.Email("电子邮件必须是正确的电子邮件地址"),
-            validate.Length(min=1, max=128, error="电子邮件地址不能为空"),
+            validate.Email("Emails must be a properly formatted email address"),
+            validate.Length(min=1, max=128, error="Emails must not be empty"),
         ],
     )
     website = field_for(
@@ -43,7 +43,7 @@ class UserSchema(ma.ModelSchema):
         validate=[
             # This is a dirty hack to let website accept empty strings so you can remove your website
             lambda website: validate.URL(
-                error="网站必须是以http或https开头的正确URL",
+                error="Websites must be a proper URL starting with http or https",
                 schemes={"http", "https"},
             )(website)
             if website
@@ -70,18 +70,18 @@ class UserSchema(ma.ModelSchema):
             if user_id:
                 if existing_user and existing_user.id != user_id:
                     raise ValidationError(
-                        "用户名已经被使用", field_names=["name"]
+                        "User name has already been taken", field_names=["name"]
                     )
             else:
                 if existing_user:
                     if current_user:
                         if current_user.id != existing_user.id:
                             raise ValidationError(
-                                "用户名已经被使用", field_names=["name"]
+                                "User name has already been taken", field_names=["name"]
                             )
                     else:
                         raise ValidationError(
-                            "用户名已经被使用", field_names=["name"]
+                            "User name has already been taken", field_names=["name"]
                         )
         else:
             if name == current_user.name:
@@ -90,11 +90,11 @@ class UserSchema(ma.ModelSchema):
                 name_changes = get_config("name_changes", default=True)
                 if bool(name_changes) is False:
                     raise ValidationError(
-                        "用户名更改被禁用", field_names=["name"]
+                        "Name changes are disabled", field_names=["name"]
                     )
                 if existing_user:
                     raise ValidationError(
-                        "用户名更改被禁用", field_names=["name"]
+                        "User name has already been taken", field_names=["name"]
                     )
 
     @pre_load
@@ -111,19 +111,19 @@ class UserSchema(ma.ModelSchema):
             if user_id:
                 if existing_user and existing_user.id != user_id:
                     raise ValidationError(
-                        "邮箱地址已经被使用", field_names=["email"]
+                        "Email address has already been used", field_names=["email"]
                     )
             else:
                 if existing_user:
                     if current_user:
                         if current_user.id != existing_user.id:
                             raise ValidationError(
-                                "邮箱地址已经被使用",
+                                "Email address has already been used",
                                 field_names=["email"],
                             )
                     else:
                         raise ValidationError(
-                            "邮箱地址已经被使用", field_names=["email"]
+                            "Email address has already been used", field_names=["email"]
                         )
         else:
             if email == current_user.email:
@@ -133,7 +133,7 @@ class UserSchema(ma.ModelSchema):
 
                 if bool(confirm) is False:
                     raise ValidationError(
-                        "请确认您当前的密码", field_names=["confirm"]
+                        "Please confirm your current password", field_names=["confirm"]
                     )
 
                 test = verify_password(
@@ -141,16 +141,16 @@ class UserSchema(ma.ModelSchema):
                 )
                 if test is False:
                     raise ValidationError(
-                        "当前密码输入错误", field_names=["confirm"]
+                        "Your previous password is incorrect", field_names=["confirm"]
                     )
 
                 if existing_user:
                     raise ValidationError(
-                        "邮箱地址已经被使用", field_names=["email"]
+                        "Email address has already been used", field_names=["email"]
                     )
                 if check_email_is_whitelisted(email) is False:
                     raise ValidationError(
-                        "只有如下电子邮件地址可以注册 {domains} ".format(
+                        "Only email addresses under {domains} may register".format(
                             domains=get_config("domain_whitelist")
                         ),
                         field_names=["email"],
@@ -169,7 +169,7 @@ class UserSchema(ma.ModelSchema):
         else:
             if password and (bool(confirm) is False):
                 raise ValidationError(
-                    "请确认您当前的密码", field_names=["confirm"]
+                    "Please confirm your current password", field_names=["confirm"]
                 )
 
             if password and confirm:
@@ -180,7 +180,7 @@ class UserSchema(ma.ModelSchema):
                     return data
                 else:
                     raise ValidationError(
-                        "当前密码输入错误", field_names=["confirm"]
+                        "Your previous password is incorrect", field_names=["confirm"]
                     )
             else:
                 data.pop("password", None)
@@ -250,14 +250,17 @@ class UserSchema(ma.ModelSchema):
                     field_id=field.id, user_id=current_user.id
                 ).first()
 
-                if field.required is True and value.strip() == "":
-                    raise ValidationError(
-                        f"字段 '{field.name}' 是必须的", field_names=["fields"]
-                    )
+                if field.required is True:
+                    if isinstance(value, str):
+                        if value.strip() == "":
+                            raise ValidationError(
+                                f"Field '{field.name}' is required",
+                                field_names=["fields"],
+                            )
 
                 if field.editable is False and entry is not None:
                     raise ValidationError(
-                        f"字段 '{field.name}' 无法被编辑",
+                        f"Field '{field.name}' cannot be editted",
                         field_names=["fields"],
                     )
 

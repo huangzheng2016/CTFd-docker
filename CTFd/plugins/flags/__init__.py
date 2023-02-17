@@ -21,7 +21,7 @@ class BaseFlag(object):
 
 
 class CTFdStaticFlag(BaseFlag):
-    name = "标准"
+    name = "static"
     templates = {  # Nunjucks templates used for key editing & viewing
         "create": "/plugins/flags/assets/static/create.html",
         "update": "/plugins/flags/assets/static/edit.html",
@@ -46,7 +46,7 @@ class CTFdStaticFlag(BaseFlag):
 
 
 class CTFdRegexFlag(BaseFlag):
-    name = "正则"
+    name = "regex"
     templates = {  # Nunjucks templates used for key editing & viewing
         "create": "/plugins/flags/assets/regex/create.html",
         "update": "/plugins/flags/assets/regex/edit.html",
@@ -64,7 +64,7 @@ class CTFdRegexFlag(BaseFlag):
                 res = re.match(saved, provided)
         # TODO: this needs plugin improvements. See #1425.
         except re.error as e:
-            raise FlagException("正则表达式语法错误") from e
+            raise FlagException("Regex parse error occured") from e
 
         return res and res.group() == provided
 

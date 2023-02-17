@@ -29,8 +29,11 @@ def during_ctf_time_only(f):
                     error = "{} has ended".format(config.ctf_name())
                     abort(403, description=error)
             if ctf_started() is False:
-                error = "{} has not started yet".format(config.ctf_name())
-                abort(403, description=error)
+                if is_teams_mode() and get_current_team() is None:
+                    return redirect(url_for("teams.private", next=request.full_path))
+                else:
+                    error = "{} has not started yet".format(config.ctf_name())
+                    abort(403, description=error)
 
     return during_ctf_time_only_wrapper
 
@@ -150,7 +153,9 @@ def require_team(f):
                     abort(403)
                 else:
                     return redirect(url_for("teams.private", next=request.full_path))
-        return f(*args, **kwargs)
+            return f(*args, **kwargs)
+        else:
+            abort(404)
 
     return require_team_wrapper
 

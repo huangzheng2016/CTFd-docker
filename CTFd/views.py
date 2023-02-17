@@ -44,6 +44,7 @@ from CTFd.utils.email import (
     DEFAULT_VERIFICATION_EMAIL_BODY,
     DEFAULT_VERIFICATION_EMAIL_SUBJECT,
 )
+from CTFd.utils.health import check_config, check_database
 from CTFd.utils.helpers import get_errors, get_infos, markup
 from CTFd.utils.modes import USERS_MODE
 from CTFd.utils.security.auth import login_user
@@ -125,19 +126,19 @@ def setup():
             team_name_email_check = validators.validate_email(name)
 
             if not valid_email:
-                errors.append("请输入有效的电子邮件地址")
+                errors.append("Please enter a valid email address")
             if names:
-                errors.append("该用户名以及被使用")
+                errors.append("That user name is already taken")
             if team_name_email_check is True:
-                errors.append("您的用户名不能是电子邮件地址")
+                errors.append("Your user name cannot be an email address")
             if emails:
-                errors.append("电子邮件地址已被使用")
+                errors.append("That email has already been used")
             if pass_short:
-                errors.append("密码长度不够")
+                errors.append("Pick a longer password")
             if pass_long:
-                errors.append("密码过长")
+                errors.append("Pick a shorter password")
             if name_len:
-                errors.append("用户名长度不够")
+                errors.append("Pick a longer user name")
 
             if len(errors) > 0:
                 return render_template(
@@ -168,15 +169,15 @@ def setup():
     <div class="col-md-6 offset-md-3">
         <img class="w-100 mx-auto d-block" style="max-width: 500px;padding: 50px;padding-top: 14vh;" src="{default_ctf_banner_location}" />
         <h3 class="text-center">
-            <p>一个非常酷的CTF竞赛平台，官网： <a href="https://ctfd.io">ctfd.io</a></p>
-            <p>关注我们的社交媒体:</p>
+            <p>A cool CTF platform from <a href="https://ctfd.io">ctfd.io</a></p>
+            <p>Follow us on social media:</p>
             <a href="https://twitter.com/ctfdio"><i class="fab fa-twitter fa-2x" aria-hidden="true"></i></a>&nbsp;
             <a href="https://facebook.com/ctfdio"><i class="fab fa-facebook fa-2x" aria-hidden="true"></i></a>&nbsp;
             <a href="https://github.com/ctfd"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
         </h3>
         <br>
         <h4 class="text-center">
-            <a href="admin">点击这里</a> 登录并设置您的CTF竞赛
+            <a href="admin">Click here</a> to login and setup your CTF
         </h4>
     </div>
 </div>"""
@@ -317,7 +318,7 @@ def settings():
         team_url = url_for("teams.private")
         infos.append(
             markup(
-                f'为了参与该竞赛，您必须进入 <a href="{team_url}"> 中加入或创建一个团队</a>.'
+                f'In order to participate you must either <a href="{team_url}">join or create a team</a>.'
             )
         )
 
@@ -329,9 +330,9 @@ def settings():
         confirm_url = markup(url_for("auth.confirm"))
         infos.append(
             markup(
-                "您的电子邮箱还未验证!<br>"
-                "请前往您的邮箱确认验证邮件.<br><br>"
-                f'邮件没收到? 点击这里 <a href="{confirm_url}"> 将会重新发送邮件</a>.'
+                "Your email address isn't confirmed!<br>"
+                "Please check your email to confirm your email address.<br><br>"
+                f'To have the confirmation email resent please <a href="{confirm_url}">click here</a>.'
             )
         )
 
@@ -409,8 +410,17 @@ def files(path):
                     else:
                         abort(403)
         else:
+            # User cannot view challenges based on challenge visibility
+            # e.g. ctf requires registration but user isn't authed or
+            # ctf requires admin account but user isn't admin
             if not ctftime():
-                abort(403)
+                # It's not CTF time. The only edge case is if the CTF is ended
+                # but we have view_after_ctf enabled
+                if ctf_ended() and view_after_ctf():
+                    pass
+                else:
+                    # In all other situations we should block challenge files
+                    abort(403)
 
             # Allow downloads if a valid token is provided
             token = request.args.get("token", "")
@@ -467,11 +477,40 @@ def themes(theme, path):
     :return:
     """
     for cand_path in (
-        safe_join(app.root_path, "themes", cand_theme, "static", path)
-        # The `theme` value passed in may not be the configured one, e.g. for
-        # admin pages, so we check that first
-        for cand_theme in (theme, *config.ctf_theme_candidates())
+            safe_join(app.root_path, "themes", cand_theme, "static", path)
+            # The `theme` value passed in may not be the configured one, e.g. for
+            # admin pages, so we check that first
+            for cand_theme in (theme, *config.ctf_theme_candidates())
     ):
         if os.path.isfile(cand_path):
             return send_file(cand_path)
     abort(404)
+
+
+@views.route("/themes/<theme>/static/<path:path>")
+def themes_beta(theme, path):
+    """
+    This is a copy of the above themes route used to avoid
+    the current appending of .dev and .min for theme assets.
+
+    In CTFd 4.0 this url_for behavior and this themes_beta
+    route will be removed.
+    """
+    for cand_path in (
+            safe_join(app.root_path, "themes", cand_theme, "static", path)
+            # The `theme` value passed in may not be the configured one, e.g. for
+            # admin pages, so we check that first
+            for cand_theme in (theme, *config.ctf_theme_candidates())
+    ):
+        if os.path.isfile(cand_path):
+            return send_file(cand_path)
+    abort(404)
+
+
+@views.route("/healthcheck")
+def healthcheck():
+    if check_database() is False:
+        return "ERR", 500
+    if check_config() is False:
+        return "ERR", 500
+    return "OK", 200

@@ -6,7 +6,7 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>创建挑战</h1>
+		<h1>Create Challenge</h1>
 	</div>
 </div>
 
@@ -14,7 +14,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">选项</h5>
+                <h5 class="modal-title">Options</h5>
 				<button type="button" class="close" data-dismiss="modal">
 					<span>&times;</span>
 				</button>
@@ -26,47 +26,48 @@
 							<div class="col-md-8">
 								<label>
 									Flag:<br>
-									<small class="form-text text-muted">你挑战的静态Flag</small>
+                                    <small class="form-text text-muted">Static flag for your challenge</small>
 								</label>
 								<input type="text" class="form-control" name="flag">
 							</div>
-							<div class="col-md-4">
-								<label>
-									&nbsp;
-									<small class="form-text text-muted">&nbsp;</small>
-								</label>
-								<select class="form-control custom-select w-100" name="flag_data">
-									<option value="">区分大小写</option>
-									<option value="case_insensitive">不区分大小写</option>
-								</select>
-							</div>
+                            <div class="col-md-4">
+                                <label>
+                                    &nbsp;
+                                    <small class="form-text text-muted">&nbsp;</small>
+                                </label>
+                                <select class="form-control custom-select w-100" name="flag_data">
+                                    <option value="">Case Sensitive</option>
+                                    <option value="case_insensitive">Case Insensitive</option>
+                                </select>
+                            </div>
 						</div>
 						<input type="hidden" name="flag_type" value="static">
 					</div>
 					<div class="form-group">
-						<div class="form-group">
-							<label>
-								文件:
-								<small class="form-text text-muted">该项挑战所带的附件</small>
-							</label>
-							<input class="form-control-file" type="file" name="file" multiple="multiple">
-							<sub class="text-muted">使用 Control键+鼠标左键 或 Cmd键+鼠标左键 进行附加上传多个文件</sub>
-						</div>
+                        <div class="form-group">
+                            <label>
+                                Files:
+                                <small class="form-text text-muted">Files distributed along with your challenge</small>
+                            </label>
+                            <input class="form-control-file" type="file" name="file" multiple="multiple">
+                            <sub class="text-muted">Attach multiple files using Control+Click or Cmd+Click</sub>
+                        </div>
 					</div>
-					<div class="form-group">
-						<label>
-							挑战状态<br>
-							<small class="form-text text-muted">用户是否能看到挑战</small>
-						</label>
-						<select class="form-control custom-select" name="state">
-							<option value="visible">显示</option>
-							<option value="hidden" selected>隐藏</option>
-						</select>
-					</div>
+                    <div class="form-group">
+                        <label>
+                            State<br>
+                            <small class="form-text text-muted">Should the challenge be visible to users</small>
+                        </label>
+                        <select class="form-control custom-select" name="state">
+                            <option value="visible">Visible</option>
+                            <option value="hidden" selected>Hidden</option>
+                        </select>
+                    </div>
 					<input id="challenge_id" type="hidden" name="challenge_id">
-					<div class="form-group">
-						<button class="btn btn-primary float-right create-challenge-submit" type="submit">完成</button>
-					</div>
+                    <div class="form-group">
+                        <button class="btn btn-primary float-right create-challenge-submit" type="submit">Finish
+                        </button>
+                    </div>
 				</form>
 			</div>
 		</div>
@@ -76,9 +77,9 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3 offset-md-1">
-			<h5 class="text-center pb-3">
-				挑战类别
-			</h5>
+            <h5 class="text-center pb-3">
+                Challenge Types
+            </h5>
 			<div id="create-chals-select">
 				{% for type in types %}
 				<label class="w-100">
@@ -88,7 +89,7 @@
 							<span class="card-title">
 								<div class="form-check">
 									<input class="form-check-input card-radio-clone" type="radio" style="visibility: hidden;" checked>
-									<span class="form-check-label">{% if type == "standard" %}标准{% else %}动态{% endif %}</span>
+									<span class="form-check-label">{{ type }}</span>
 								</div>
 							</span>
 						</div>

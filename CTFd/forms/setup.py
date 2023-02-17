@@ -18,60 +18,62 @@ from CTFd.utils.config import get_themes
 
 class SetupForm(BaseForm):
     ctf_name = StringField(
-        "竞赛名称", description="您的CTF竞赛主名称"
+        "Event Name", description="The name of your CTF event/workshop"
     )
     ctf_description = TextAreaField(
-        "竞赛描述", description="您的CTF竞赛描述"
+        "Event Description", description="Description for the CTF"
     )
     user_mode = RadioField(
-        "模式选择",
-        choices=[("teams", "团队赛"), ("users", "个人赛")],
+        "User Mode",
+        choices=[("teams", "Team Mode"), ("users", "User Mode")],
         default="teams",
-        description="控制比赛形式是以团队为单位进行竞赛，还是以个人为单位进行竞赛",
+        description="Controls whether users join together in teams to play (Team Mode) or play as themselves (User Mode)",
         validators=[InputRequired()],
     )
 
     name = StringField(
-        "管理员用户名",
-        description="管理员账户自己的用户名",
+        "Admin Username",
+        description="Your username for the administration account",
         validators=[InputRequired()],
     )
     email = EmailField(
-        "管理员邮箱",
-        description="管理员账户自己的邮箱",
+        "Admin Email",
+        description="Your email address for the administration account",
         validators=[InputRequired()],
     )
     password = PasswordField(
-        "管理员密码",
-        description="管理员账户的密码",
+        "Admin Password",
+        description="Your password for the administration account",
         validators=[InputRequired()],
     )
 
     ctf_logo = FileField(
         "Logo",
-        description="网站的Logo(徽标)，不是CTF名称. 用作主页按钮.",
+        description="Logo to use for the website instead of a CTF name. Used as the home page button. Optional.",
     )
-    ctf_banner = FileField("Banner", description="主页的Banner(横幅图片).")
+    ctf_banner = FileField(
+        "Banner", description="Banner to use for the homepage. Optional."
+    )
     ctf_small_icon = FileField(
-        "网站小图标",
-        description="用户浏览器标签左侧显示的图标(favicon),只能是PNG图片。并且大小必须是32x32px",
+        "Small Icon",
+        description="favicon used in user's browsers. Only PNGs accepted. Must be 32x32px. Optional.",
     )
     ctf_theme = SelectField(
-        "主题",
-        description="CTFd使用的主题",
+        "Theme",
+        description="CTFd Theme to use. Can be changed later.",
         choices=list(zip(get_themes(), get_themes())),
         default=DEFAULT_THEME,
         validators=[InputRequired()],
     )
     theme_color = HiddenField(
-        "主题颜色",
-        description="主题使用的用于控制界面美观的颜色，需要主题支持才能生效。(可选)",
+        "Theme Color",
+        description="Color used by theme to control aesthetics. Requires theme support. Optional.",
     )
 
     start = StringField(
-        "开始时间", description="CTF竞赛的开始时间. (可选)."
+        "Start Time", description="Time when your CTF is scheduled to start. Optional."
     )
     end = StringField(
-        "结束时间", description="CTF竞赛的结束时间. (可选)."
+        "End Time", description="Time when your CTF is scheduled to end. Optional."
     )
-    submit = SubmitField("完成")
+    submit = SubmitField("Finish")

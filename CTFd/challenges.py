@@ -23,7 +23,7 @@ challenges = Blueprint("challenges", __name__)
 def listing():
     if (
         Configs.challenge_visibility == ChallengeVisibilityTypes.PUBLIC
-        and authed() is False
+            and authed() is False
     ):
         pass
     else:
@@ -32,6 +32,9 @@ def listing():
 
     infos = get_infos()
     errors = get_errors()
+
+    if Configs.challenge_visibility == ChallengeVisibilityTypes.ADMINS:
+        infos.append("Challenge Visibility is set to Admins Only")
 
     if ctf_started() is False:
         errors.append(f"{Configs.ctf_name} has not started yet")

@@ -15,6 +15,9 @@ services:
       - ACCESS_LOG=-
       - ERROR_LOG=-
       - REVERSE_PROXY=true
+      - CTFD_URL=ctfd.localhost
+      - DIRECT_URL=dircet.localhost
+      - DYNAMIC_URL=dynamic.localhost
     volumes:
       - .data/CTFd/logs:/var/log/CTFd
       - .data/CTFd/uploads:/var/uploads

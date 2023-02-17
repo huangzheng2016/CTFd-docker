@@ -100,7 +100,7 @@ def reset_password(data=None):
             "reset_password.html",
             errors=[
                 markup(
-                    "当前竞赛平台没有配置发送邮件功能.<br> 请与管理员联系以重置密码."
+                    "This CTF is not configured to send email.<br> Please contact an organizer to have your password reset."
                 )
             ],
         )
@@ -110,11 +110,11 @@ def reset_password(data=None):
             email_address = unserialize(data, max_age=1800)
         except (BadTimeSignature, SignatureExpired):
             return render_template(
-                "reset_password.html", errors=["您的链接已过期"]
+                "reset_password.html", errors=["Your link has expired"]
             )
         except (BadSignature, TypeError, base64.binascii.Error):
             return render_template(
-                "reset_password.html", errors=["您的重置令牌(token)无效"]
+                "reset_password.html", errors=["Your reset token is invalid"]
             )
 
         if request.method == "GET":
@@ -133,7 +133,7 @@ def reset_password(data=None):
             pass_short = len(password) == 0
             if pass_short:
                 return render_template(
-                    "reset_password.html", errors=["密码长度不够"]
+                    "reset_password.html", errors=["Please pick a longer password"]
                 )
 
             user.password = password
@@ -271,23 +271,23 @@ def register():
                 )
             )
         if names:
-            errors.append("该用户名已被使用")
+            errors.append("That user name is already taken")
         if team_name_email_check is True:
-            errors.append("您的用户名不能是电子邮件地址")
+            errors.append("Your user name cannot be an email address")
         if emails:
-            errors.append("电子邮件地址已被使用")
+            errors.append("That email has already been used")
         if pass_short:
-            errors.append("密码长度不够")
+            errors.append("Pick a longer password")
         if pass_long:
-            errors.append("密码过长")
+            errors.append("Pick a shorter password")
         if name_len:
-            errors.append("用户名长度不够")
+            errors.append("Pick a longer user name")
         if valid_website is False:
-            errors.append("Blog/网站 必须是以http或https开头的正确URL")
+            errors.append("Websites must be a proper URL starting with http or https")
         if valid_country is False:
-            errors.append("无效的地区")
+            errors.append("Invalid country")
         if valid_affiliation is False:
-            errors.append("单位/组织 过长")
+            errors.append("Please provide a shorter affiliation")
 
         if len(errors) > 0:
             return render_template(
@@ -401,13 +401,13 @@ def login():
                     "[{date}] {ip} - submitted invalid password for {name}",
                     name=user.name,
                 )
-                errors.append("用户名或密码错误")
+                errors.append("Your username or password is incorrect")
                 db.session.close()
                 return render_template("login.html", errors=errors)
         else:
             # This user just doesn't exist
             log("logins", "[{date}] {ip} - submitted invalid account information")
-            errors.append("用户名或密码错误")
+            errors.append("Your username or password is incorrect")
             db.session.close()
             return render_template("login.html", errors=errors)
     else:
@@ -512,7 +512,7 @@ def oauth_redirect():
                     )
                     return redirect(url_for("auth.login"))
 
-            if get_config("user_mode") == TEAMS_MODE:
+            if get_config("user_mode") == TEAMS_MODE and user.team_id is None:
                 team_id = api_data["team"]["id"]
                 team_name = api_data["team"]["name"]
 

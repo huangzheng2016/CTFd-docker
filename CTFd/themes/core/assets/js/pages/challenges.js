@@ -138,33 +138,42 @@ const displayChal = chal => {
 };
 
 function renderSubmissionResponse(response) {
-  const result = response.data;
+    const result = response.data;
 
-  const result_message = $("#result-message");
-  const result_notification = $("#result-notification");
-  const answer_input = $("#challenge-input");
-  result_notification.removeClass();
-  result_message.text(result.message);
+    const result_message = $("#result-message");
+    const result_notification = $("#result-notification");
+    const answer_input = $("#challenge-input");
+    result_notification.removeClass();
+    result_message.text(result.message);
 
-  if (result.status === "authentication_required") {
-    window.location =
-      CTFd.config.urlRoot +
-      "/login?next=" +
-      CTFd.config.urlRoot +
-      window.location.pathname +
-      window.location.hash;
-    return;
-  } else if (result.status === "incorrect") {
-    // Incorrect key
-    result_notification.addClass(
-      "alert alert-danger alert-dismissable text-center"
-    );
-    result_notification.slideDown();
+    const next_btn = $(
+        `<div class='col-md-12 pb-3'><button class='btn btn-info w-100'>Next Challenge</button></div>`
+    ).click(function () {
+        $("#challenge-window").modal("toggle");
+        setTimeout(function () {
+            loadChal(CTFd._internal.challenge.data.next_id);
+        }, 500);
+    });
 
-    answer_input.removeClass("correct");
-    answer_input.addClass("wrong");
-    setTimeout(function() {
-      answer_input.removeClass("wrong");
+    if (result.status === "authentication_required") {
+        window.location =
+            CTFd.config.urlRoot +
+            "/login?next=" +
+            CTFd.config.urlRoot +
+            window.location.pathname +
+            window.location.hash;
+        return;
+    } else if (result.status === "incorrect") {
+        // Incorrect key
+        result_notification.addClass(
+            "alert alert-danger alert-dismissable text-center"
+        );
+        result_notification.slideDown();
+
+        answer_input.removeClass("correct");
+        answer_input.addClass("wrong");
+        setTimeout(function () {
+            answer_input.removeClass("wrong");
     }, 3000);
   } else if (result.status === "correct") {
     // Challenge Solved
@@ -180,38 +189,46 @@ function renderSubmissionResponse(response) {
     ) {
       // Only try to increment solves if the text isn't hidden
       $(".challenge-solves").text(
-        parseInt(
-          $(".challenge-solves")
-            .text()
-            .split(" ")[0]
-        ) +
+          parseInt(
+              $(".challenge-solves")
+                  .text()
+                  .split(" ")[0]
+          ) +
           1 +
           " Solves"
       );
     }
 
-    answer_input.val("");
-    answer_input.removeClass("wrong");
-    answer_input.addClass("correct");
-  } else if (result.status === "already_solved") {
-    // Challenge already solved
-    result_notification.addClass(
-      "alert alert-info alert-dismissable text-center"
-    );
-    result_notification.slideDown();
+        answer_input.val("");
+        answer_input.removeClass("wrong");
+        answer_input.addClass("correct");
 
-    answer_input.addClass("correct");
-  } else if (result.status === "paused") {
-    // CTF is paused
-    result_notification.addClass(
-      "alert alert-warning alert-dismissable text-center"
-    );
-    result_notification.slideDown();
-  } else if (result.status === "ratelimited") {
-    // Keys per minute too high
-    result_notification.addClass(
-      "alert alert-warning alert-dismissable text-center"
-    );
+        if (CTFd._internal.challenge.data.next_id) {
+            $(".submit-row").html(next_btn);
+        }
+    } else if (result.status === "already_solved") {
+        // Challenge already solved
+        result_notification.addClass(
+            "alert alert-info alert-dismissable text-center"
+        );
+        result_notification.slideDown();
+
+        answer_input.addClass("correct");
+
+        if (CTFd._internal.challenge.data.next_id) {
+            $(".submit-row").html(next_btn);
+        }
+    } else if (result.status === "paused") {
+        // CTF is paused
+        result_notification.addClass(
+            "alert alert-warning alert-dismissable text-center"
+        );
+        result_notification.slideDown();
+    } else if (result.status === "ratelimited") {
+        // Keys per minute too high
+        result_notification.addClass(
+            "alert alert-warning alert-dismissable text-center"
+        );
     result_notification.slideDown();
 
     answer_input.addClass("too-fast");
@@ -420,12 +437,17 @@ const displayUnlock = id => {
 
 const loadHint = id => {
   CTFd.api.get_hint({ hintId: id }).then(response => {
-    if (response.data.content) {
-      displayHint(response.data);
-      return;
-    }
+      if (!response.success) {
+          let msg = Object.values(response.errors).join("\n");
+          alert(msg);
+          return;
+      }
+      if (response.data.content) {
+          displayHint(response.data);
+          return;
+      }
 
-    displayUnlock(id);
+      displayUnlock(id);
   });
 };
 

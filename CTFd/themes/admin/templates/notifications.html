@@ -3,34 +3,34 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>公告</h1>
+			<h1>Notifications</h1>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
-				{% with form = Forms.notifications.NotificationForm() %}
-				<form method="POST" id="notifications_form">
-					<div class="form-group">
-						<b>{{ form.title.label }}</b>
-						{{ form.title(class="form-control") }}
-						<small class="form-text text-muted">
-							{{ form.title.description }}
-						</small>
-					</div>
-					<div class="form-group">
-						<b>{{ form.content.label }}</b>
-						{{ form.content(class="form-control", rows="3") }}
-						<small class="form-text text-muted">
-							{{ form.content.description }}
-						</small>
-					</div>
-					<div class="form-row">
-						<div class="col">
-							<div class="form-group">
-								<b>{{ form.type.label }}</b>
-							</div>
-							{% for radio in form.type %}
+            <div class="col-md-12">
+                {% with form = Forms.notifications.NotificationForm() %}
+                <form method="POST" id="notifications_form" autocomplete="off">
+                    <div class="form-group">
+                        <b>{{ form.title.label }}</b>
+                        {{ form.title(class = "form-control") }}
+                        <small class="form-text text-muted">
+                            {{ form.title.description }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <b>{{ form.content.label }}</b>
+                        {{ form.content(class = "form-control", rows = "3") }}
+                        <small class="form-text text-muted">
+                            {{ form.content.description }}
+                        </small>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-group">
+                                <b>{{ form.type.label }}</b>
+                            </div>
+                            {% for radio in form.type %}
 								<div class="form-check form-check-inline pr-1">
 									{{ radio(class="form-check-input") }}
 									{{ radio.label(class="form-check-label") }}

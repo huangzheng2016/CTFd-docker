@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>管理面板</title>
+	<title>Admin Panel</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="{{ url_for('views.themes', theme='core', path='img/favicon.ico') }}" type="image/x-icon">
@@ -11,16 +11,65 @@
 	<link rel="stylesheet" href="{{ url_for('views.themes', theme='core', path='css/main.css') }}">
 	<link rel="stylesheet" href="{{ url_for('views.themes', theme='admin', path='css/admin.css') }}">
 	<link rel="stylesheet" href="{{ url_for('views.themes', theme='admin', path='css/codemirror.css') }}">
-	<script type="text/javascript">
-		var init = {
-			'urlRoot': "{{ request.script_root }}",
-			'csrfNonce': "{{ Session.nonce }}",
-			'userMode': "{{ get_config('user_mode') }}",
-			'userId': {{ id if (id is defined) else 0 }},
-			'start': {{ get_config("start") | tojson }},
-			'end': {{ get_config("end") | tojson }},
-		}
-	</script>
+    <script type="text/javascript">
+        var init = {
+            'urlRoot': "{{ request.script_root }}",
+            'csrfNonce': "{{ Session.nonce }}",
+            'userMode': "{{ Configs.user_mode }}",
+            'userId': {
+        {
+            Session.id
+        }
+        },
+        'userName'
+        :
+        {
+            {
+                User.name | tojson
+            }
+        }
+        ,
+        'userEmail'
+        :
+        {
+            {
+                User.email | tojson
+            }
+        }
+        ,
+        'teamId'
+        :
+        {
+            {
+                Team.id | tojson
+            }
+        }
+        ,
+        'teamName'
+        :
+        {
+            {
+                Team.name | tojson
+            }
+        }
+        ,
+        'start'
+        :
+        {
+            {
+                Configs.start | tojson
+            }
+        }
+        ,
+        'end'
+        :
+        {
+            {
+                Configs.end | tojson
+            }
+        }
+        }
+    </script>
 	{% block stylesheets %} {% endblock %}
 	{% for stylesheet in get_registered_admin_stylesheets() %}
 		{% if stylesheet.startswith('http') %}
@@ -41,44 +90,54 @@
 					aria-controls="base-navbars" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="base-navbars">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.statistics') }}">统计</a></li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.notifications') }}">公告管理</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">页面管理</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ url_for('admin.pages_listing') }}">所有页面</a>
-							<a class="dropdown-item" href="{{ url_for('admin.pages_new') }}">新建页面</a>
-						</div>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.users_listing') }}">用户管理</a></li>
-					{% if get_config('user_mode') == 'teams' %}
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.teams_listing') }}">团队管理</a></li>
-					{% endif %}
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.scoreboard_listing') }}">排行榜管理</a></li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.challenges_listing') }}">挑战管理</a></li>
-					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-						   aria-haspopup="true" aria-expanded="true">解答提交管理</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ url_for('admin.submissions_listing') }}">所有提交</a>
-							<a class="dropdown-item" href="{{ url_for('admin.submissions_listing', submission_type='correct') }}">正确提交</a>
-							<a class="dropdown-item" href="{{ url_for('admin.submissions_listing', submission_type='incorrect') }}">错误提交</a>
-						</div>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('admin.config') }}">设置</a></li>
+            <div class="collapse navbar-collapse" id="base-navbars">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.statistics') }}">Statistics</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ url_for('admin.notifications') }}">Notifications</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="true">Pages</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ url_for('admin.pages_listing') }}">All Pages</a>
+                            <a class="dropdown-item" href="{{ url_for('admin.pages_new') }}">New Page</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.users_listing') }}">Users</a></li>
+                    {% if get_config('user_mode') == 'teams' %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.teams_listing') }}">Teams</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ url_for('admin.scoreboard_listing') }}">Scoreboard</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ url_for('admin.challenges_listing') }}">Challenges</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="true">Submissions</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ url_for('admin.submissions_listing') }}">All
+                                Submissions</a>
+                            <a class="dropdown-item"
+                               href="{{ url_for('admin.submissions_listing', submission_type='correct') }}">Correct
+                                Submissions</a>
+                            <a class="dropdown-item"
+                               href="{{ url_for('admin.submissions_listing', submission_type='incorrect') }}">Incorrect
+                                Submissions</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.config') }}">Config</a></li>
 
-					{% set plugin_menu = get_admin_plugin_menu_bar() %}
-					{% set plugins = get_configurable_plugins() %}
-					{% if plugin_menu or plugins %}
-						<li class="nav-item">
-							<a class="nav-link d-none d-md-block d-lg-block">|</a>
-						</li>
+                    {% set plugin_menu = get_admin_plugin_menu_bar() %}
+                    {% set plugins = get_configurable_plugins() %}
+                    {% if plugin_menu or plugins %}
+                    <li class="nav-item">
+                        <a class="nav-link d-none d-md-block d-lg-block">|</a>
+                    </li>
 
-						{% for menu in plugin_menu %}
-							{% if request.script_root %}
+                    {% for menu in plugin_menu %}
+                    {% if request.script_root %}
 								{% set route = '/' + request.script_root + '/' + menu.route %}
 							{% else %}
 								{% set route = menu.route %}
@@ -87,14 +146,17 @@
 						{% endfor %}
 
 						{% if plugins %}
-						<li class="nav-item dropdown">
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">插件管理 <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-									{% for plugin in plugins %}
-											<a class="dropdown-item" href="{{ request.script_root }}{{ plugin.route }}">{{ plugin.name }}</a>
-									{% endfor %}
-							</ul>
-						</li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Plugins <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% for plugin in plugins %}
+                            <a class="dropdown-item" href="{{ request.script_root }}{{ plugin.route }}">{{
+                                    plugin.name
+                                }}</a>
+                            {% endfor %}
+                        </ul>
+                    </li>
 						{% endif %}
 					{% endif %}
 				</ul>
@@ -109,21 +171,21 @@
 		</div>
 	</nav>
 
-	<main role="main">
-		{% if get_config('version_latest') %}
-		<!-- div class="container-fluid bg-warning text-center py-3">
-			<div class="row">
-				<div class="col-md-12">
-					<a class="btn btn-warning" href="{{ get_config('version_latest') }}">
-						有新的CTFd版本可用!
-					</a>
-				</div>
-			</div>
-		</div -->
-		{% endif %}
-		{% block content %}
-		{% endblock %}
-	</main>
+    <main role="main">
+        {% if get_config('version_latest') %}
+        <div class="container-fluid bg-warning text-center py-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-warning" href="{{ get_config('version_latest') }}">
+                        A new CTFd version is available!
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </main>
 
 	<footer class="footer pt-2">
 		<div class="container text-center">

@@ -114,12 +114,12 @@ class UserSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("name", "用户名"),
+            ("name", "Name"),
             ("id", "ID"),
-            ("email", "邮箱"),
-            ("affiliation", "单位/组织"),
-            ("website", "Blog/网站"),
-            ("ip", "IP 地址"),
+            ("email", "Email"),
+            ("affiliation", "Affiliation"),
+            ("website", "Website"),
+            ("ip", "IP Address"),
         ],
         default="name",
         validators=[InputRequired()],
@@ -132,9 +132,9 @@ class PublicUserSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("name", "用户名"),
-            ("affiliation", "单位/组织"),
-            ("website", "Blog/网站"),
+            ("name", "Name"),
+            ("affiliation", "Affiliation"),
+            ("website", "Website"),
         ],
         default="name",
         validators=[InputRequired()],
@@ -144,17 +144,17 @@ class PublicUserSearchForm(BaseForm):
 
 
 class UserBaseForm(BaseForm):
-    name = StringField("用户名", validators=[InputRequired()])
-    email = EmailField("邮箱", validators=[InputRequired()])
-    password = PasswordField("密码")
-    website = StringField("Blog/网站")
-    affiliation = StringField("单位/组织")
-    country = SelectField("地区", choices=SELECT_COUNTRIES_LIST)
-    type = SelectField("类型", choices=[("user", "普通用户"), ("admin", "管理员")])
-    verified = BooleanField("验证邮箱")
-    hidden = BooleanField("是否隐藏")
-    banned = BooleanField("是否封禁")
-    submit = SubmitField("创建")
+    name = StringField("User Name", validators=[InputRequired()])
+    email = EmailField("Email", validators=[InputRequired()])
+    password = PasswordField("Password")
+    website = StringField("Website")
+    affiliation = StringField("Affiliation")
+    country = SelectField("Country", choices=SELECT_COUNTRIES_LIST)
+    type = SelectField("Type", choices=[("user", "User"), ("admin", "Admin")])
+    verified = BooleanField("Verified")
+    hidden = BooleanField("Hidden")
+    banned = BooleanField("Banned")
+    submit = SubmitField("Submit")
 
 
 def UserEditForm(*args, **kwargs):

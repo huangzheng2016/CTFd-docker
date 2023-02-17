@@ -11,14 +11,14 @@ from CTFd.utils.user import get_current_user
 
 def SettingsForm(*args, **kwargs):
     class _SettingsForm(BaseForm):
-        name = StringField("用户名")
-        email = StringField("邮箱")
-        password = PasswordField("新密码")
-        confirm = PasswordField("当前密码")
-        affiliation = StringField("单位/组织")
-        website = URLField("Blog/网站")
-        country = SelectField("地区", choices=SELECT_COUNTRIES_LIST)
-        submit = SubmitField("修改")
+        name = StringField("User Name")
+        email = StringField("Email")
+        password = PasswordField("Password")
+        confirm = PasswordField("Current Password")
+        affiliation = StringField("Affiliation")
+        website = URLField("Website")
+        country = SelectField("Country", choices=SELECT_COUNTRIES_LIST)
+        submit = SubmitField("Submit")
 
         @property
         def extra(self):
@@ -46,5 +46,5 @@ def SettingsForm(*args, **kwargs):
 
 
 class TokensForm(BaseForm):
-    expiration = DateField("到期时间")
-    submit = SubmitField("生成")
+    expiration = DateField("Expiration")
+    submit = SubmitField("Generate")
