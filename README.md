@@ -21,7 +21,7 @@ sudo sh CTFd/install.sh
 ```
 apt-get install git docker docker-compose -y
 git clone https://github.com/huangzheng2016/CTFd-docker CTFd
-docker swarm init
+docker swarm init --advertise-addr 127.0.0.1
 docker node update --label-add='name=linux-1' $(docker node ls -q)
 docker-compose -f CTFd/docker-compose.yml up -d
 docker-compose -f CTFd/docker-compose.yml exec ctfd python manage.py set_config whale auto_connect_network
