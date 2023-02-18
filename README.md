@@ -7,7 +7,7 @@
 
 ## 快速安装
 
-在Ubuntu20.04下完成过测试
+在Ubuntu20.04、Ubuntu22.04下完成过测试
 
 ```
 git clone https://github.com/huangzheng2016/CTFd-docker CTFd
@@ -42,3 +42,10 @@ docker-compose -f CTFd/docker-compose.yml exec ctfd python manage.py set_config 
 
 2022.11.17
 >更新Stable源 
+
+2023.2.18
+>移除中文包
+>将CTFd版本更新至3.5.1
+>更新一键部署的脚本
+>在部署时可以通过更改Docker_compose自定义反代域名
+>一些安全性的更新
