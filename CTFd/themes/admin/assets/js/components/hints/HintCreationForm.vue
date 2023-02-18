@@ -26,56 +26,56 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>
-                      Hint<br/>
+                      Hint<br />
                       <small>Markdown &amp; HTML are supported</small>
                     </label>
                     <textarea
-                        type="text"
-                        class="form-control markdown"
-                        name="content"
-                        rows="7"
-                        ref="content"
+                      type="text"
+                      class="form-control markdown"
+                      name="content"
+                      rows="7"
+                      ref="content"
                     ></textarea>
                   </div>
 
                   <div class="form-group">
                     <label>
-                      Cost<br/>
+                      Cost<br />
                       <small>How many points it costs to see your hint.</small>
                     </label>
                     <input
-                        type="number"
-                        class="form-control"
-                        name="cost"
-                        v-model.lazy="cost"
+                      type="number"
+                      class="form-control"
+                      name="cost"
+                      v-model.lazy="cost"
                     />
                   </div>
 
                   <div class="form-group">
                     <label>
-                      Requirements<br/>
+                      Requirements<br />
                       <small
-                      >Hints that must be unlocked before unlocking this
+                        >Hints that must be unlocked before unlocking this
                         hint</small
                       >
                     </label>
                     <div
-                        class="form-check"
-                        v-for="hint in hints"
-                        :key="hint.id"
+                      class="form-check"
+                      v-for="hint in hints"
+                      :key="hint.id"
                     >
                       <label class="form-check-label cursor-pointer">
                         <input
-                            class="form-check-input"
-                            type="checkbox"
-                            :value="hint.id"
-                            v-model="selectedHints"
+                          class="form-check-input"
+                          type="checkbox"
+                          :value="hint.id"
+                          v-model="selectedHints"
                         />
                         {{ hint.cost }} - {{ hint.id }}
                       </label>
                     </div>
                   </div>
-                  <input type="hidden" id="hint-id-for-hint" name="id"/>
+                  <input type="hidden" id="hint-id-for-hint" name="id" />
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default {
         challenge_id: this.$props.challenge_id,
         content: this.getContent(),
         cost: this.getCost(),
-        requirements: {prerequisites: this.selectedHints}
+        requirements: { prerequisites: this.selectedHints }
       };
       CTFd.fetch("/api/v1/hints", {
         method: "POST",

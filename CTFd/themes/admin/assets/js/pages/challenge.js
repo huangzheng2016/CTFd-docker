@@ -474,55 +474,55 @@ $(() => {
     }).$mount(vueContainer);
   }
 
-    // Load ChallengeFilesList component
-    if (document.querySelector("#challenge-files")) {
-        const challengeFilesList = Vue.extend(ChallengeFilesList);
-        let vueContainer = document.createElement("div");
-        document.querySelector("#challenge-files").appendChild(vueContainer);
-        new challengeFilesList({
-            propsData: {challenge_id: window.CHALLENGE_ID}
-        }).$mount(vueContainer);
-    }
+  // Load ChallengeFilesList component
+  if (document.querySelector("#challenge-files")) {
+    const challengeFilesList = Vue.extend(ChallengeFilesList);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#challenge-files").appendChild(vueContainer);
+    new challengeFilesList({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-    // Load HintsList component
-    if (document.querySelector("#challenge-hints")) {
-        const hintsList = Vue.extend(HintsList);
-        let vueContainer = document.createElement("div");
-        document.querySelector("#challenge-hints").appendChild(vueContainer);
-        new hintsList({
-            propsData: {challenge_id: window.CHALLENGE_ID}
-        }).$mount(vueContainer);
-    }
+  // Load HintsList component
+  if (document.querySelector("#challenge-hints")) {
+    const hintsList = Vue.extend(HintsList);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#challenge-hints").appendChild(vueContainer);
+    new hintsList({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-    // Load Next component
-    if (document.querySelector("#next-add-form")) {
-        const nextChallenge = Vue.extend(NextChallenge);
-        let vueContainer = document.createElement("div");
-        document.querySelector("#next-add-form").appendChild(vueContainer);
-        new nextChallenge({
-            propsData: {challenge_id: window.CHALLENGE_ID}
-        }).$mount(vueContainer);
-    }
+  // Load Next component
+  if (document.querySelector("#next-add-form")) {
+    const nextChallenge = Vue.extend(NextChallenge);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#next-add-form").appendChild(vueContainer);
+    new nextChallenge({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-    // Because this JS is shared by a few pages,
-    // we should only insert the CommentBox if it's actually in use
-    if (document.querySelector("#comment-box")) {
-        // Insert CommentBox element
-        const commentBox = Vue.extend(CommentBox);
-        let vueContainer = document.createElement("div");
-        document.querySelector("#comment-box").appendChild(vueContainer);
-        new commentBox({
-            propsData: {type: "challenge", id: window.CHALLENGE_ID}
-        }).$mount(vueContainer);
-    }
+  // Because this JS is shared by a few pages,
+  // we should only insert the CommentBox if it's actually in use
+  if (document.querySelector("#comment-box")) {
+    // Insert CommentBox element
+    const commentBox = Vue.extend(CommentBox);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#comment-box").appendChild(vueContainer);
+    new commentBox({
+      propsData: { type: "challenge", id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-    $.get(CTFd.config.urlRoot + "/api/v1/challenges/types", function (response) {
-        const data = response.data;
-        loadChalTemplate(data["standard"]);
+  $.get(CTFd.config.urlRoot + "/api/v1/challenges/types", function(response) {
+    const data = response.data;
+    loadChalTemplate(data["standard"]);
 
-        $("#create-chals-select input[name=type]").change(function () {
-            let challenge = data[this.value];
-            loadChalTemplate(challenge);
+    $("#create-chals-select input[name=type]").change(function() {
+      let challenge = data[this.value];
+      loadChalTemplate(challenge);
     });
   });
 });

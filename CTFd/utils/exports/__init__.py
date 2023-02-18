@@ -309,7 +309,7 @@ def import_ctf(backup, erase=True):
                                     # We only want to apply this hack to columns that are expecting a datetime object
                                     try:
                                         is_dt_column = (
-                                                type(getattr(direct_table, k).type)
+                                            type(getattr(direct_table, k).type)
                                             == sqltypes.DateTime
                                         )
                                     except AttributeError:
@@ -337,9 +337,9 @@ def import_ctf(backup, erase=True):
                         # From v2.0.0 to v2.1.0 requirements could have been a string or JSON because of a SQLAlchemy issue
                         # This is a hack to ensure we can still accept older exports. See #867
                         if member in (
-                                "db/challenges.json",
-                                "db/hints.json",
-                                "db/awards.json",
+                            "db/challenges.json",
+                            "db/hints.json",
+                            "db/awards.json",
                         ):
                             requirements = entry.get("requirements")
                             if requirements and isinstance(requirements, string_types):

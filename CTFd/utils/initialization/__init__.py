@@ -199,11 +199,11 @@ def init_request_processors(app):
                 return "Import currently in progress", 403
         if is_setup() is False:
             if request.endpoint in (
-                    "views.setup",
-                    "views.integrations",
-                    "views.themes",
-                    "views.files",
-                    "views.healthcheck",
+                "views.setup",
+                "views.integrations",
+                "views.themes",
+                "views.files",
+                "views.healthcheck",
             ):
                 return
             else:

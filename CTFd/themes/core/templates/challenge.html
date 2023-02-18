@@ -10,11 +10,11 @@
 				</li>
 				{% block solves %}
 					<li class="nav-item">
-                        <a class="nav-link challenge-solves" href="#solves">
-                            {% if solves != None %}
-                            {{ solves }} {% if solves > 1 %}Solves{% else %}Solves{% endif %}
-                            {% endif %}
-                        </a>
+						<a class="nav-link challenge-solves" href="#solves">
+							{% if solves != None %}
+								{{ solves }} {% if solves > 1 %}Solves{% else %}Solves{% endif %}
+							{% endif %}
+						</a>
 					</li>
 				{% endblock %}
 			</ul>
@@ -55,18 +55,18 @@
 								<div class='col-md-12 hint-button-wrapper text-center mb-3'>
 									<a class="btn btn-info btn-hint btn-block load-hint" href="javascript:;" data-hint-id="{{ hint.id }}">
 										{% if hint.content %}
-                                        <small>
-                                            View Hint
-                                        </small>
+											<small>
+												View Hint
+											</small>
 										{% else %}
 											{% if hint.cost %}
-                                        <small>
-                                            Unlock Hint for {{ hint.cost }} points
-                                        </small>
+												<small>
+													Unlock Hint for {{ hint.cost }} points
+												</small>
 											{% else %}
-                                        <small>
-                                            View Hint
-                                        </small>
+												<small>
+													View Hint
+												</small>
 											{% endif %}
 										{% endif %}
 									</a>
@@ -115,7 +115,7 @@
 							<div class="col-md-3 form-group key-submit">
 								{% block submit %}
 								<button id="challenge-submit" class="challenge-submit" type="submit">
-                                    Submit
+									Submit
 								</button>
 								{% endblock %}
 							</div>
@@ -136,12 +136,12 @@
 							<div class="col-md-12">
 								<table class="table table-striped text-center">
 									<thead>
-                                    <tr>
-                                        <td><b>Name</b>
-                                        </td>
-                                        <td><b>Date</b>
-                                        </td>
-                                    </tr>
+									<tr>
+										<td><b>Name</b>
+										</td>
+										<td><b>Date</b>
+										</td>
+									</tr>
 									</thead>
 									<tbody id="challenge-solves-names">
 									</tbody>

@@ -23,7 +23,7 @@ challenges = Blueprint("challenges", __name__)
 def listing():
     if (
         Configs.challenge_visibility == ChallengeVisibilityTypes.PUBLIC
-            and authed() is False
+        and authed() is False
     ):
         pass
     else:

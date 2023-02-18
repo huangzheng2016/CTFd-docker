@@ -15,13 +15,13 @@ services:
       - ACCESS_LOG=-
       - ERROR_LOG=-
       - REVERSE_PROXY=true
-      - CTFD_URL=ctfd.localhost
-      - DIRECT_URL=dircet.localhost
-      - DYNAMIC_URL=dynamic.localhost
+      - CTFD_URL=ctfd.test.com
+      - DIRECT_URL=dircet.test.com
+      - DYNAMIC_URL=dynamic.test.com
     volumes:
       - .data/CTFd/logs:/var/log/CTFd
       - .data/CTFd/uploads:/var/uploads
-      - .:/opt/CTFd:ro
+      - .:/opt/CTFd
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - db
@@ -38,6 +38,9 @@ services:
       - 80:80
     depends_on:
       - ctfd
+    networks:
+        default:
+        internal:
 
   db:
     image: mariadb:10.4.12
@@ -78,7 +81,7 @@ services:
       - ./frps:/etc/frp/
     ports:
       - 8009:8009
-      - 9000-9050:9000-9050
+      - 10000-10100:10000-10100
     networks:
       frp:
       default:

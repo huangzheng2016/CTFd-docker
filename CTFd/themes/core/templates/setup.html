@@ -31,22 +31,22 @@
 			<form method="post" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal" id="setup-form" enctype="multipart/form-data">
 				<ul class="nav nav-pills nav-fill mb-4">
 					<li class="nav-item">
-                        <a class="nav-link active" data-toggle="pill" href="#general">General</a>
+						<a class="nav-link active" data-toggle="pill" href="#general">General</a>
 					</li>
 					<li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#mode">Mode</a>
+						<a class="nav-link" data-toggle="pill" href="#mode">Mode</a>
 					</li>
 					<li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#administration">Administration</a>
+						<a class="nav-link" data-toggle="pill" href="#administration">Administration</a>
 					</li>
 					<li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#style">Style</a>
+						<a class="nav-link" data-toggle="pill" href="#style">Style</a>
 					</li>
 					<li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#datetime">Date &amp; Time</a>
+						<a class="nav-link" data-toggle="pill" href="#datetime">Date &amp; Time</a>
 					</li>
 					<li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#integrations">Integrations</a>
+						<a class="nav-link" data-toggle="pill" href="#integrations">Integrations</a>
 					</li>
 				</ul>
 
@@ -70,7 +70,7 @@
 
 						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#mode">
-                                Next
+								Next
 							</button>
 						</div>
 					</div>
@@ -121,7 +121,7 @@
 
 						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#administration">
-                                Next
+								Next
 							</button>
 						</div>
 					</div>
@@ -149,16 +149,15 @@
 						</div>
 
 						<div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" id="newsletter-checkbox"
-                                       checked>
-                                Subscribe email address to the CTFd LLC Newsletter for news and updates
-                            </label>
+							<label class="form-check-label">
+								<input class="form-check-input" type="checkbox" value="" id="newsletter-checkbox" checked>
+								Subscribe email address to the CTFd LLC Newsletter for news and updates
+							</label>
 						</div>
 
 						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#style">
-                                Next
+								Next
 							</button>
 						</div>
 					</div>
@@ -200,7 +199,7 @@
 									<input type="color" id="config-color-picker" class="pr-1" style="width: 100px; height: 30px;" value="">
 								</div>
 								<div class="btn-group">
-                                    <button type="button" id="config-color-reset">Reset</button>
+									<button type="button" id="config-color-reset">Reset</button>
 								</div>
 							</div>
 							<small class="form-text text-muted">
@@ -209,7 +208,7 @@
 						</div>
 						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#datetime">
-                                Next
+								Next
 							</button>
 						</div>
 					</div>
@@ -218,15 +217,15 @@
 							<b>{{ form.start.label }}</b>
 							<div class="row">
 								<div class="col-md-4">
-                                    <label>Date</label>
+									<label>Date</label>
 									<input class="form-control" id="start-date" type="date" placeholder="yyyy-mm-dd" data-preview="#start"/>
 								</div>
 								<div class="col-md-4">
-                                    <label>Time</label>
+									<label>Time</label>
 									<input class="form-control" id="start-time" type="time" placeholder="hh:mm" data-preview="#start"/>
 								</div>
 								<div class="col-md-4">
-                                    <label>UTC Preview</label>
+									<label>UTC Preview</label>
 									{{ form.start(class="form-control", id="start-preview", readonly=True) }}
 								</div>
 							</div>
@@ -237,22 +236,20 @@
 
 						<div class="form-group">
 							<b>{{ form.end.label }}</b>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Date</label>
-                                    <input class="form-control" id="end-date" type="date" placeholder="yyyy-mm-dd"
-                                           data-preview="#end"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Time</label>
-                                    <input class="form-control" id="end-time" type="time" placeholder="hh:mm"
-                                           data-preview="#end"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>UTC Preview</label>
-                                    {{ form.end(class = "form-control", id = "end-preview", readonly = True) }}
-                                </div>
-                            </div>
+							<div class="row">
+								<div class="col-md-4">
+									<label>Date</label>
+									<input class="form-control" id="end-date" type="date" placeholder="yyyy-mm-dd" data-preview="#end"/>
+								</div>
+								<div class="col-md-4">
+									<label>Time</label>
+									<input class="form-control" id="end-time" type="time" placeholder="hh:mm" data-preview="#end"/>
+								</div>
+								<div class="col-md-4">
+									<label>UTC Preview</label>
+									{{ form.end(class="form-control", id="end-preview", readonly=True) }}
+								</div>
+							</div>
 							<small class="form-text text-muted">
 								{{ form.end.description }}
 							</small>
@@ -260,28 +257,27 @@
 
 						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#integrations">
-                                Next
+								Next
 							</button>
 						</div>
 					</div>
 					<div class="tab-pane fade" id="integrations" role="tabpanel">
-                        <div class="form-group">
-                            <h4>MajorLeagueCyber Integration</h4>
-                            <p>
-                                MajorLeagueCyber (MLC) is a cyber security event tracker written and maintained by the
-                                developers of CTFd.
-                                Set up MLC integration to:
-                            <ul>
-                                <li>display your event on the MLC website and mailing list</li>
-                                <li>share and track participant statistics</li>
-                                <li>provide live updates in team Slack or Discord groups</li>
-                                <li>archive challenges, team participation &amp; more</li>
-                            </ul>
-                            </p>
-                            <button type="button" id="integration-mlc" class="btn btn-primary btn-block">
-                                Setup
-                            </button>
-                        </div>
+						<div class="form-group">
+							<h4>MajorLeagueCyber Integration</h4>
+							<p>
+							MajorLeagueCyber (MLC) is a cyber security event tracker written and maintained by the developers of CTFd.
+							Set up MLC integration to:
+							<ul>
+								<li>display your event on the MLC website and mailing list</li>
+								<li>share and track participant statistics</li>
+								<li>provide live updates in team Slack or Discord groups</li>
+								<li>archive challenges, team participation &amp; more</li>
+							</ul>
+							</p>
+							<button type="button" id="integration-mlc" class="btn btn-primary btn-block">
+								Setup
+							</button>
+						</div>
 
 						<br>
 						<hr>

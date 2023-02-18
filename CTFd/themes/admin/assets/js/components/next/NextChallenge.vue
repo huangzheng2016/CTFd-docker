@@ -4,26 +4,25 @@
       <div class="form-group">
         <label>
           Next Challenge
-          <br/>
+          <br />
           <small class="text-muted"
-          >Challenge to recommend after solving this challenge</small
+            >Challenge to recommend after solving this challenge</small
           >
         </label>
         <select class="form-control custom-select" v-model="selected_id">
-          <option value="null"> --</option>
+          <option value="null"> -- </option>
           <option
-              v-for="challenge in otherChallenges"
-              :value="challenge.id"
-              :key="challenge.id"
-          >{{ challenge.name }}
-          </option
+            v-for="challenge in otherChallenges"
+            :value="challenge.id"
+            :key="challenge.id"
+            >{{ challenge.name }}</option
           >
         </select>
       </div>
       <div class="form-group">
         <button
-            class="btn btn-success float-right"
-            :disabled="!updateAvailable"
+          class="btn btn-success float-right"
+          :disabled="!updateAvailable"
         >
           Save
         </button>
@@ -39,7 +38,7 @@ export default {
   props: {
     challenge_id: Number
   },
-  data: function () {
+  data: function() {
     return {
       challenge: null,
       challenges: [],
@@ -47,7 +46,7 @@ export default {
     };
   },
   computed: {
-    updateAvailable: function () {
+    updateAvailable: function() {
       if (this.challenge) {
         return this.selected_id != this.challenge.next_id;
       } else {
@@ -55,14 +54,14 @@ export default {
       }
     },
     // Get all challenges besides the current one and current next
-    otherChallenges: function () {
+    otherChallenges: function() {
       return this.challenges.filter(challenge => {
         return challenge.id !== this.$props.challenge_id;
       });
     }
   },
   methods: {
-    loadData: function () {
+    loadData: function() {
       CTFd.fetch(`/api/v1/challenges/${this.$props.challenge_id}`, {
         method: "GET",
         credentials: "same-origin",
@@ -71,17 +70,17 @@ export default {
           "Content-Type": "application/json"
         }
       })
-          .then(response => {
-            return response.json();
-          })
-          .then(response => {
-            if (response.success) {
-              this.challenge = response.data;
-              this.selected_id = response.data.next_id;
-            }
-          });
+        .then(response => {
+          return response.json();
+        })
+        .then(response => {
+          if (response.success) {
+            this.challenge = response.data;
+            this.selected_id = response.data.next_id;
+          }
+        });
     },
-    loadChallenges: function () {
+    loadChallenges: function() {
       CTFd.fetch("/api/v1/challenges?view=admin", {
         method: "GET",
         credentials: "same-origin",
@@ -90,16 +89,16 @@ export default {
           "Content-Type": "application/json"
         }
       })
-          .then(response => {
-            return response.json();
-          })
-          .then(response => {
-            if (response.success) {
-              this.challenges = response.data;
-            }
-          });
+        .then(response => {
+          return response.json();
+        })
+        .then(response => {
+          if (response.success) {
+            this.challenges = response.data;
+          }
+        });
     },
-    updateNext: function () {
+    updateNext: function() {
       CTFd.fetch(`/api/v1/challenges/${this.$props.challenge_id}`, {
         method: "PATCH",
         credentials: "same-origin",
@@ -111,15 +110,15 @@ export default {
           next_id: this.selected_id != "null" ? this.selected_id : null
         })
       })
-          .then(response => {
-            return response.json();
-          })
-          .then(data => {
-            if (data.success) {
-              this.loadData();
-              this.loadChallenges();
-            }
-          });
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          if (data.success) {
+            this.loadData();
+            this.loadChallenges();
+          }
+        });
     }
   },
   created() {

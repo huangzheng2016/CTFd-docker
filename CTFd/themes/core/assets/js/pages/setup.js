@@ -80,89 +80,89 @@ $(() => {
       e.preventDefault();
       $(e.target)
         .closest(".tab-pane")
-          .find("button[data-href]")
-          .click();
+        .find("button[data-href]")
+        .click();
     }
   });
 
-    $("#integration-mlc").click(mlcSetup);
+  $("#integration-mlc").click(mlcSetup);
 
-    $("#start-date,#start-time").change(processDateTime("start"));
-    $("#end-date,#end-time").change(processDateTime("end"));
+  $("#start-date,#start-time").change(processDateTime("start"));
+  $("#end-date,#end-time").change(processDateTime("end"));
 
-    $("#config-color-picker").on("input", function (_e) {
-        $("#config-color-input").val($(this).val());
-    });
+  $("#config-color-picker").on("input", function(_e) {
+    $("#config-color-input").val($(this).val());
+  });
 
-    $("#config-color-reset").click(function () {
-        $("#config-color-input").val("");
-        $("#config-color-picker").val("");
-    });
+  $("#config-color-reset").click(function() {
+    $("#config-color-input").val("");
+    $("#config-color-picker").val("");
+  });
 
-    $("#ctf_logo").on("change", function () {
-        if (this.files[0].size > 128000) {
-            if (
-                !confirm(
-                    "This image file is larger than 128KB which may result in increased load times. Are you sure you'd like to use this logo?"
-                )
-            ) {
-                this.value = "";
-            }
-        }
-    });
+  $("#ctf_logo").on("change", function() {
+    if (this.files[0].size > 128000) {
+      if (
+        !confirm(
+          "This image file is larger than 128KB which may result in increased load times. Are you sure you'd like to use this logo?"
+        )
+      ) {
+        this.value = "";
+      }
+    }
+  });
 
-    $("#ctf_banner").on("change", function () {
-        if (this.files[0].size > 512000) {
-            if (
-                !confirm(
-                    "This image file is larger than 512KB which may result in increased load times. Are you sure you'd like to use this icon?"
-                )
-            ) {
-                this.value = "";
-            }
-        }
-    });
+  $("#ctf_banner").on("change", function() {
+    if (this.files[0].size > 512000) {
+      if (
+        !confirm(
+          "This image file is larger than 512KB which may result in increased load times. Are you sure you'd like to use this icon?"
+        )
+      ) {
+        this.value = "";
+      }
+    }
+  });
 
-    $("#ctf_small_icon").on("change", function () {
-        if (this.files[0].size > 32000) {
-            if (
-                !confirm(
-                    "This image file is larger than 32KB which may result in increased load times. Are you sure you'd like to use this icon?"
-                )
-            ) {
-                this.value = "";
-            }
-        }
-    });
+  $("#ctf_small_icon").on("change", function() {
+    if (this.files[0].size > 32000) {
+      if (
+        !confirm(
+          "This image file is larger than 32KB which may result in increased load times. Are you sure you'd like to use this icon?"
+        )
+      ) {
+        this.value = "";
+      }
+    }
+  });
 
-    window.addEventListener("storage", function (event) {
-        if (event.key == "integrations" && event.newValue) {
-            let integration = JSON.parse(event.newValue);
-            if (integration["name"] == "mlc") {
-                $("#integration-mlc")
-                    .text("Already Configured")
-                    .attr("disabled", true);
-                window.focus();
-                localStorage.removeItem("integrations");
-            }
-        }
-    });
+  window.addEventListener("storage", function(event) {
+    if (event.key == "integrations" && event.newValue) {
+      let integration = JSON.parse(event.newValue);
+      if (integration["name"] == "mlc") {
+        $("#integration-mlc")
+          .text("Already Configured")
+          .attr("disabled", true);
+        window.focus();
+        localStorage.removeItem("integrations");
+      }
+    }
+  });
 
-    $("#setup-form").submit(function (e) {
-        if ($("#newsletter-checkbox").prop("checked")) {
-            let email = $(e.target)
-                .find("input[name=email]")
-                .val();
+  $("#setup-form").submit(function(e) {
+    if ($("#newsletter-checkbox").prop("checked")) {
+      let email = $(e.target)
+        .find("input[name=email]")
+        .val();
 
       $.ajax({
-          url:
-              "https://newsletters.ctfd.io/lists/ot889gr1sa0e1/subscribe/post-json?c=?",
-          data: {
-              email: email,
-              b_38e27f7d496889133d2214208_d7c3ed71f9: ""
-          },
-          dataType: "jsonp",
-          contentType: "application/json; charset=utf-8"
+        url:
+          "https://newsletters.ctfd.io/lists/ot889gr1sa0e1/subscribe/post-json?c=?",
+        data: {
+          email: email,
+          b_38e27f7d496889133d2214208_d7c3ed71f9: ""
+        },
+        dataType: "jsonp",
+        contentType: "application/json; charset=utf-8"
       });
     }
   });

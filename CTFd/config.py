@@ -83,7 +83,7 @@ config_ini.read(path)
 # fmt: off
 class ServerConfig(object):
     SECRET_KEY: str = empty_str_cast(config_ini["server"]["SECRET_KEY"]) \
-                      or gen_secret_key()
+        or gen_secret_key()
 
     DATABASE_URL: str = empty_str_cast(config_ini["server"]["DATABASE_URL"])
     if not DATABASE_URL:
@@ -190,14 +190,14 @@ class ServerConfig(object):
 
     # === LOGS ===
     LOG_FOLDER: str = empty_str_cast(config_ini["logs"]["LOG_FOLDER"]) \
-                      or os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
+        or os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
 
     # === UPLOADS ===
     UPLOAD_PROVIDER: str = empty_str_cast(config_ini["uploads"]["UPLOAD_PROVIDER"]) \
-                           or "filesystem"
+        or "filesystem"
 
     UPLOAD_FOLDER: str = empty_str_cast(config_ini["uploads"]["UPLOAD_FOLDER"]) \
-                         or os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
+        or os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
 
     if UPLOAD_PROVIDER == "s3":
         AWS_ACCESS_KEY_ID: str = empty_str_cast(config_ini["uploads"]["AWS_ACCESS_KEY_ID"])
@@ -213,13 +213,11 @@ class ServerConfig(object):
     # === OPTIONAL ===
     REVERSE_PROXY: Union[str, bool] = empty_str_cast(config_ini["optional"]["REVERSE_PROXY"], default=False)
 
-    TEMPLATES_AUTO_RELOAD: bool = process_boolean_str(
-        empty_str_cast(config_ini["optional"]["TEMPLATES_AUTO_RELOAD"], default=True))
+    TEMPLATES_AUTO_RELOAD: bool = process_boolean_str(empty_str_cast(config_ini["optional"]["TEMPLATES_AUTO_RELOAD"], default=True))
 
     THEME_FALLBACK: bool = process_boolean_str(empty_str_cast(config_ini["optional"]["THEME_FALLBACK"], default=True))
 
-    SQLALCHEMY_TRACK_MODIFICATIONS: bool = process_boolean_str(
-        empty_str_cast(config_ini["optional"]["SQLALCHEMY_TRACK_MODIFICATIONS"], default=False))
+    SQLALCHEMY_TRACK_MODIFICATIONS: bool = process_boolean_str(empty_str_cast(config_ini["optional"]["SQLALCHEMY_TRACK_MODIFICATIONS"], default=False))
 
     SWAGGER_UI: bool = process_boolean_str(empty_str_cast(config_ini["optional"]["SWAGGER_UI"], default=False))
 
@@ -229,20 +227,16 @@ class ServerConfig(object):
 
     APPLICATION_ROOT: str = empty_str_cast(config_ini["optional"]["APPLICATION_ROOT"], default="/")
 
-    SERVER_SENT_EVENTS: bool = process_boolean_str(
-        empty_str_cast(config_ini["optional"]["SERVER_SENT_EVENTS"], default=True))
+    SERVER_SENT_EVENTS: bool = process_boolean_str(empty_str_cast(config_ini["optional"]["SERVER_SENT_EVENTS"], default=True))
 
-    HTML_SANITIZATION: bool = process_boolean_str(
-        empty_str_cast(config_ini["optional"]["HTML_SANITIZATION"], default=False))
+    HTML_SANITIZATION: bool = process_boolean_str(empty_str_cast(config_ini["optional"]["HTML_SANITIZATION"], default=False))
 
     SAFE_MODE: bool = process_boolean_str(empty_str_cast(config_ini["optional"].get("SAFE_MODE", False), default=False))
 
     if DATABASE_URL.startswith("sqlite") is False:
         SQLALCHEMY_ENGINE_OPTIONS = {
-            "max_overflow": int(empty_str_cast(config_ini["optional"]["SQLALCHEMY_MAX_OVERFLOW"], default=20)),
-            # noqa: E131
-            "pool_pre_ping": empty_str_cast(config_ini["optional"]["SQLALCHEMY_POOL_PRE_PING"], default=True),
-            # noqa: E131
+            "max_overflow": int(empty_str_cast(config_ini["optional"]["SQLALCHEMY_MAX_OVERFLOW"], default=20)),  # noqa: E131
+            "pool_pre_ping": empty_str_cast(config_ini["optional"]["SQLALCHEMY_POOL_PRE_PING"], default=True),  # noqa: E131
         }
 
     # === OAUTH ===

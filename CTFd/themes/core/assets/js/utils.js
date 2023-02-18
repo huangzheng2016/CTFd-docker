@@ -281,46 +281,44 @@ export function makeSortableTables() {
       table.append(rows[i]);
     }
   });
-
-    function comparer(index) {
-        return function (a, b) {
-            var valA = getCellValue(a, index),
-                valB = getCellValue(b, index);
-            return $.isNumeric(valA) && $.isNumeric(valB)
-                ? valA - valB
-                : valA.toString().localeCompare(valB);
-        };
-    }
-
-    function getCellValue(row, index) {
-        return $(row)
-            .children("td")
-            .eq(index)
-            .text();
-    }
+  function comparer(index) {
+    return function(a, b) {
+      var valA = getCellValue(a, index),
+        valB = getCellValue(b, index);
+      return $.isNumeric(valA) && $.isNumeric(valB)
+        ? valA - valB
+        : valA.toString().localeCompare(valB);
+    };
+  }
+  function getCellValue(row, index) {
+    return $(row)
+      .children("td")
+      .eq(index)
+      .text();
+  }
 }
 
 export function getScript(src) {
-    const p = new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        document.body.appendChild(script);
-        script.onload = resolve;
-        script.onerror = reject;
-        script.async = true;
-        script.src = src;
-    });
+  const p = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    document.body.appendChild(script);
+    script.onload = resolve;
+    script.onerror = reject;
+    script.async = true;
+    script.src = src;
+  });
 
-    return p;
+  return p;
 }
 
 export function createHtmlNode(html) {
-    const template = document.createElement("template");
-    template.innerHTML = html.trim();
-    return template.content.firstChild;
+  const template = document.createElement("template");
+  template.innerHTML = html.trim();
+  return template.content.firstChild;
 }
 
 export function htmlEntities(string) {
-    return $("<div/>")
-        .text(string)
-        .html();
+  return $("<div/>")
+    .text(string)
+    .html();
 }

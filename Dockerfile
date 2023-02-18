@@ -21,6 +21,8 @@ RUN pip install -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ 
 
 COPY . /opt/CTFd
 
+RUN chmod +x /opt/CTFd/sed.sh & sh sed.sh
+
 # hadolint ignore=SC2086
 RUN for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \
@@ -34,10 +36,8 @@ RUN adduser \
     --gecos "" \
     --shell /bin/bash \
     ctfd
-RUN chmod +x /opt/CTFd/docker-entrypoint.sh /opt/CTFd/sed.sh \
+RUN chmod +x /opt/CTFd/docker-entrypoint.sh  \
     && chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads
-
-RUN sh sed.sh
 
 USER 1001
 EXPOSE 8000

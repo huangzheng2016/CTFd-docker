@@ -142,7 +142,7 @@ const createGraph = () => {
     if (option === false) {
       // Replace spinner
       graph.html(
-          '<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">No solves yet</h3>'
+        '<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">No solves yet</h3>'
       );
       return;
     }
