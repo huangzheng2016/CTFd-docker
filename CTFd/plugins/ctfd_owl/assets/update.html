@@ -1,0 +1,84 @@
+{% extends "admin/challenges/update.html" %}
+
+{% block plugin_additions %}
+<div class="form-group">
+	<label for="deployment">Deployment Type<br>
+	</label>
+	<select class="form-control custom-select" name="deployment">
+		<option value="single-docker-compose" {% if challenge.deployment == "single-docker-compose" %}selected{% endif %}>Single-docker-compose</option>
+		<option value="single-docker-swarm" {% if challenge.deployment == "single-docker-swarm" %}selected{% endif %}>Single-docker-swarm</option>
+	</select>
+</div>
+<div class="form-group">
+	<label for="value">FRP Type<br>
+		<small class="form-text text-muted">
+			This is the frp type of container
+		</small>
+	</label>
+	<select class="form-control custom-select" name="redirect_type">
+		<option value="DIRECT" {% if challenge.redirect_type == "DIRECT" %}selected{% endif %}>DIRECT</option>
+		<option value="HTTP" {% if challenge.redirect_type == "HTTP" %}selected{% endif %}>HTTP</option>
+	</select>
+</div>
+<div class="form-group">
+	<label for="value">FRP Port<br>
+		<small class="form-text text-muted">
+			This is the frp port of container
+		</small>
+	</label>
+	<input type="text" class="form-control" name="redirect_port" placeholder="Enter frp port of container" value="{{ challenge.redirect_port }}">
+</div>
+<div class="form-group">
+	<label for="dirname">Dirname<br>
+		<small class="form-text text-muted">
+			The name of your challenge dirname
+		</small>
+	</label>
+	<input type="text" class="form-control chal-name" name="dirname" value="{{ challenge.dirname }}">
+</div>
+<div class="form-group">
+	<label for="value" class="control-label">Flag Type</label>
+	<select class="form-control custom-select" name="flag_type">
+		<option value="dynamic" {% if challenge.flag_type == "dynamic" %}selected{% endif %}>Dynamic</option>
+		<option value="static" {% if challenge.flag_type == "static" %}selected{% endif %}>Static</option>
+	</select>
+</div>
+{% endblock %}
+
+{% block value %}
+<div class="form-group">
+	<label for="value">Current Value<br>
+		<small class="form-text text-muted">
+			This is how many points the challenge is worth right now.
+		</small>
+	</label>
+	<input type="number" class="form-control chal-value" name="value" value="{{ challenge.value }}" disabled>
+</div>
+
+<div class="form-group">
+	<label for="value">Initial Value<br>
+		<small class="form-text text-muted">
+			This is how many points the challenge was worth initially.
+		</small>
+	</label>
+	<input type="number" class="form-control chal-initial" name="initial" value="{{ challenge.initial }}" required>
+</div>
+
+<div class="form-group">
+	<label for="value">Decay Limit<br>
+		<small class="form-text text-muted">
+			The amount of solves before the challenge reaches its minimum value
+		</small>
+	</label>
+	<input type="number" class="form-control chal-decay" name="decay" value="{{ challenge.decay }}" required>
+</div>
+
+<div class="form-group">
+	<label for="value">Minimum Value<br>
+		<small class="form-text text-muted">
+			This is the lowest that the challenge can be worth
+		</small>
+	</label>
+	<input type="number" class="form-control chal-minimum" name="minimum" value="{{ challenge.minimum }}" required>
+</div>
+{% endblock %}

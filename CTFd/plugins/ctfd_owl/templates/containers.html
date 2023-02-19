@@ -1,0 +1,156 @@
+{% extends "admin/base.html" %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+	<div class="jumbotron">
+		<div class="container">
+			<h1>CTFd Owl Instances</h1>
+		</div>
+	</div>
+	<div class="container">
+		<svg hidden>
+			<symbol id="copy" viewBox="0 0 24 24">
+				<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+			</symbol>
+		</svg>
+		<div class="row">
+			<div class="col-md-3">
+				<ul class="nav nav-pills flex-column">
+					<li class="nav-item">
+						<a class="nav-link rounded-0" href="/plugins/ctfd_owl/admin/settings">Owl Settings</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link rounded-0 active" href="#">Containers</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-9">
+				<div class="float-right pb-3">
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-outline-secondary"
+							data-toggle="tooltip" title="Renew Containers" id="containers-renew-button">
+							<i class="btn-fa fas fa-sync"></i>
+						</button>
+						<button type="button" class="btn btn-outline-danger"
+							data-toggle="tooltip" title="Delete Containers" id="containers-delete-button">
+							<i class="btn-fa fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<table class="table table-striped border">
+					<thead>
+					<tr>
+						<th class="border-right" data-checkbox>
+							<div class="form-check text-center">&nbsp;
+								<input type="checkbox" class="form-check-input" data-checkbox-all>
+							</div>
+						</th>
+						<th class="sort-col text-center"><b>ID</b></th>
+						<th class="sort-col text-center"><b>{% if mode == 'users' %}User{% else %}Team{% endif %}</b></th>
+						<th class="sort-col text-center"><b>Challenge</b></th>
+						<th class="text-center"><b>Access Method</b></th>
+						<th class="text-center"><b>Flag</b></th>
+						<th class="sort-col text-center"><b>Startup Time</b></th>
+						<th class="sort-col text-center"><b>Renewal Times</b></th>
+						<th class="text-center"><b>Delete</b></th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for container in containers %}
+						<tr>
+							<td class="border-right" data-checkbox>
+								<div class="form-check text-center">&nbsp;
+									<input type="checkbox" class="form-check-input" data-user-id="{{ container.user.id }}">
+								</div>
+							</td>
+							<td class="text-center">
+								{{ container.id }}
+							</td>
+							<td class="text-center">
+								{% if mode == 'users' %}
+								<a href="{{ url_for('admin.users_detail', user_id=container.user_id) }}">
+                                    {{ container.user.name | truncate(12) }}
+                                </a>
+								{% else %}
+                                 <a href="{{ url_for('admin.teams_detail', team_id=container.user.team_id) }}">
+                                    Team {{ container.user.team_id }}
+                                </a>
+								{% endif %}
+							</td>
+							<td class="text-center">
+								<a href="{{ url_for('admin.challenges_detail', challenge_id=container.challenge.id) }}">
+                                    {{ container.challenge.name }}
+                                </a>
+							</td>
+							<td class="text-center">
+								{{ container.challenge.redirect_type }}&nbsp;
+								<svg class="click-copy" data-copy="{% if container.challenge.redirect_type == 'http' %}{% if configs.get('frp_http_port', "80") == "80" %}{{ "http://" + container.uuid + configs.get('frp_http_domain_suffix', "") }}{% else %}{{ "http://" + container.uuid + configs.get('frp_http_domain_suffix', "") + ":" + configs.get('frp_http_port', "80")}}{% endif %}{% else %}{{ configs.get('frp_direct_ip_address', "")}}:{{ container.port }}{% endif %}"
+									height="24" width="24" style="cursor: pointer;">
+									<use xlink:href="#copy" />
+								</svg>
+							</td>
+							<td class="text-center">
+								<svg class="click-copy" data-copy="{{ container.flag }}"
+									height="24" width="24" style="cursor: pointer;">
+									<use xlink:href="#copy" />
+								</svg>
+							</td>
+                            <td class="text-center">
+                                {{ container.start_time }}
+                            </td>
+                            <td class="text-center">
+                                {{ container.renew_count }}&nbsp;
+                                <a class="renew-container" container-id="{{ container.id }}" data-toggle="tooltip"
+                                       user-id="{{ container.user.id }}" data-placement="top"
+                                       challenge-id="{{ container.challenge_id }}" title="Renew Container #{{ container.id }}">
+                                    <i class="fas fa-sync"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a class="delete-container" container-id="{{ container.id }}" data-toggle="tooltip"
+                                     user-id="{{ container.user.id }}" data-placement="top"
+                                     title="Destroy Container #{{ container.id }}">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% if pages > 1 %}
+			<div class="row">
+				<div class="col-md-12">
+					<div class="text-center">Page
+						<br>
+						{% if curr_page != 1 %}
+							<a href="/plugins/ctfd_owl/admin/containers?page={{ curr_page - 1 }}">
+								&lt;&lt;&lt;
+							</a>
+						{% endif %}
+						{% for page in range(1, pages + 1) %}
+							{% if curr_page != page %}
+								<a href="/plugins/ctfd_owl/admin/containers?page={{ page }}">{{ page }}</a>
+							{% else %}
+								<b>{{ page }}</b>
+							{% endif %}
+						{% endfor %}
+						{% if curr_page != pages %}
+							<a href="/plugins/ctfd_owl/admin/containers?page={{ curr_page + 1 }}">
+								&gt;&gt;&gt;
+							</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block scripts %}
+  <script defer src="{{ url_for('plugins.ctfd_owl.assets', path='containers.js') }}"></script>
+{% endblock %}
+

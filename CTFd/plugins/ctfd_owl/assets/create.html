@@ -1,0 +1,86 @@
+{% extends "admin/challenges/create.html" %}
+
+{% block header %}
+<div class="alert alert-secondary" role="alert">
+	Dynamic value challenges decrease in value as they receive solves. The more solves a dynamic challenge has,
+	the lower its value is to everyone who has solved it.
+</div>
+{% endblock %}
+
+{% block plugin_additions %}
+<div class="form-group">
+	<label for="deployment" class="control-label">Deployment Type</label>
+	<select class="form-control custom-select" name="deployment">
+		<option value="single-docker-compose" selected>Single-docker-compose</option>
+		<option value="single-docker-swarm">Single-docker-swarm</option>
+	</select>
+</div>
+<div class="form-group">
+	<label for="dirname">Dirname<br>
+		<small class="form-text text-muted">
+			The name of your challenge dirname
+		</small>
+	</label>
+	<input type="text" class="form-control" name="dirname" placeholder="Enter challenge dirname">
+</div>
+<div class="form-group">
+	<label for="value">FRP Type<br>
+		<small class="form-text text-muted">
+			This is the frp type of container
+		</small>
+	</label>
+	<select class="form-control custom-select" name="redirect_type">
+		<option value="DIRECT" selected>DIRECT</option>
+		<option value="HTTP">HTTP</option>
+	</select>
+</div>
+<div class="form-group">
+	<label for="value">FRP Port<br>
+		<small class="form-text text-muted">
+			This is the frp port of container
+		</small>
+	</label>
+	<input type="text" class="form-control" name="redirect_port" placeholder="Enter frp port of container" required>
+</div>
+<div class="form-group">
+	<label for="value" class="control-label">Flag Type</label>
+	<select class="form-control custom-select" name="flag_type">
+		<option value="dynamic">Dynamic</option>
+		<option value="static">Static</option>
+	</select>
+</div>
+{% endblock %}
+
+{% block value %}
+<div class="form-group">
+	<label for="value">Initial Value<br>
+		<small class="form-text text-muted">
+			This is how many points the challenge is worth initially.
+		</small>
+	</label>
+	<input type="number" class="form-control" name="value" placeholder="Enter value" required>
+
+</div>
+
+<div class="form-group">
+	<label for="value">Decay Limit<br>
+		<small class="form-text text-muted">
+			The amount of solves before the challenge reaches its minimum value
+		</small>
+	</label>
+	<input type="number" class="form-control" name="decay" placeholder="Enter decay limit" required>
+</div>
+
+<div class="form-group">
+	<label for="value">Minimum Value<br>
+		<small class="form-text text-muted">
+			This is the lowest that the challenge can be worth
+		</small>
+	</label>
+	<input type="number" class="form-control" name="minimum" placeholder="Enter minimum value" required>
+</div>
+{% endblock %}
+
+{% block type %}
+<input type="hidden" value="dynamic_check_docker" name="type" id="chaltype">
+{% endblock %}

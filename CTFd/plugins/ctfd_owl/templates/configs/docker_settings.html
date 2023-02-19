@@ -1,0 +1,51 @@
+<div role="tabpanel" class="tab-pane config-section active" id="docker">
+	<form method="POST" autocomplete="off" class="w-100">
+        <div class="form-group">
+			<label>
+				Docker Flag Prefix
+				<small class="form-text text-muted">
+					Docker flag prefix in containers
+				</small>
+			</label>
+			<input type="text" class="form-control" id="docker_flag_prefix" name="docker_flag_prefix" value="{{ configs.get("docker_flag_prefix") }}">
+		</div>
+        <div class="form-group">
+			<label>
+				Docker APIs URL
+				<small class="form-text text-muted">
+					Docker APIs URL to connect. (Separated by commas)
+				</small>
+			</label>
+			<input type="text" class="form-control" id="docker-api-url" name="docker_api_url" value="{{ configs.get("docker_api_url") }}">
+		</div>
+        <div class="form-group">
+			<label>
+				Max Container Count
+				<small class="form-text text-muted">
+					Max Container Count
+				</small>
+			</label>
+			<input type="text" class="form-control" id="docker-max-container-count" name="docker_max_container_count" value="{{ configs.get("docker_max_container_count") }}">
+		</div>
+		<div class="form-group">
+			<label>
+				Docker Container Timeout
+				<small class="form-text text-muted">
+					Docker container running timeout. 3600 mean 3600s.
+				</small>
+			</label>
+			<input type="number" class="form-control" id="docker-timeout" name="docker_timeout" value="{{ configs.get("docker_timeout", "3600") }}">
+		</div>
+        <div class="form-group">
+			<label>
+				Max Renewal Times
+				<small class="form-text text-muted">
+					Max Renewal Times
+				</small>
+			</label>
+			<input type="text" class="form-control" id="docker-max-renew-count" name="docker_max_renew_count" value="{{ configs.get("docker_max_renew_count") }}">
+		</div>
+		
+		<button type="submit" class="btn btn-md btn-primary float-right">Update</button>
+	</form>
+</div>

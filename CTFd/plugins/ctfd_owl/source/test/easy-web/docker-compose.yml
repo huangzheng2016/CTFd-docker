@@ -1,0 +1,36 @@
+version: "3"
+services:
+    service:
+        image: nginx:latest
+        volumes:
+            - ./nginx:/etc/nginx/conf.d
+            - ./www:/var/www/html
+            # nginx和php必须同时映射才能通信
+        restart: always
+        environment: 
+            TZ: Asia/Shanghai
+        expose:
+            - 80
+        networks:
+            - net
+    
+    php:
+        image: xiabee/php7.3-fpm
+        build: ./php
+        volumes: 
+            - ./php/php.ini:/usr/local/etc/php/php.ini
+            - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf
+            - ./www:/var/www/html
+            - "$PWD/flag:/var/www/html/fl0g:ro"
+            # nginx和php必须同时映射才能通信      
+        environment: 
+            TZ: Asia/Shanghai
+        restart: always
+        networks:
+            - net
+
+networks:
+    # 配置docker network
+    net: 
+      external: 
+         name: bitnsc_frp_containers
