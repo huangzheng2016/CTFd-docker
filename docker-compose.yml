@@ -38,6 +38,7 @@ services:
       - 80:80
     depends_on:
       - ctfd
+      - frps
     networks:
         default:
         internal:
@@ -81,7 +82,7 @@ services:
       - ./frps:/etc/frp/
     ports:
       - 8009:8009
-      - 10001-10300:10001-10300
+      - 10001-10200:10001-10200
     networks:
       frp:
       default:

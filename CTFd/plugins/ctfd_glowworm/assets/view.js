@@ -29,7 +29,7 @@ function stopShowAuto () {
 
 function loadInfo () {
     var challenge_id = parseInt($('#challenge-id').val());
-    var url = "/plugins/ctfd-glowworm/container?challenge_id=" + challenge_id;
+    var url = "/plugins/ctfd_glowworm/container?challenge_id=" + challenge_id;
 
     var params = {
     };
@@ -98,7 +98,7 @@ function loadInfo () {
 
 window.challenge.renew = function() {
     var challenge_id = parseInt($('#challenge-id').val());
-    var url = "/plugins/ctfd-glowworm/container?challenge_id=" + challenge_id;
+    var url = "/plugins/ctfd_glowworm/container?challenge_id=" + challenge_id;
 
     $('#glowworm-button-renew')[0].innerHTML = "Waiting...";
     $('#glowworm-button-renew')[0].disabled = true;
@@ -182,7 +182,7 @@ window.challenge.submit = function (cb, preview) {
 };
 
 function get_targets(id) {
-  $.get(script_root + "/plugins/ctfd-glowworm/challenge/" + id, function(
+  $.get(script_root + "/plugins/ctfd_glowworm/challenge/" + id, function(
     response
   ) {
     var data = response.data;

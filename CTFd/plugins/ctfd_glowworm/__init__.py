@@ -29,20 +29,25 @@ from .control_utils import ControlUtil
 import datetime, fcntl
 import logging, os, sys, uuid
 from .extensions import get_mode
+from .setup import setup_default_configs
 
 def load(app):
     # upgrade()
     app.db.create_all()
+    app.db.create_all()
+    if "awd_setup" not in DBUtils.get_all_configs():
+        setup_default_configs()
+
     CHALLENGE_CLASSES["ada_challenge"] = GlowwormChallenge
     register_plugin_assets_directory(
         app, base_path="/plugins/ctfd_glowworm/assets/"
     )
     glowworm_blueprint = Blueprint(
-        "ctfd-glowworm",
+        "ctfd_glowworm",
         __name__,
         template_folder="templates",
         static_folder="assets",
-        url_prefix="/plugins/ctfd-glowworm"
+        url_prefix="/plugins/ctfd_glowworm"
     )
 
     log_dir = app.config["LOG_FOLDER"]

@@ -107,19 +107,19 @@
 					<div class="text-center">Page
 						<br>
 						{% if curr_page != 1 %}
-							<a href="/plugins/ctfd-glowworm/admin/environments?page={{ curr_page - 1 }}">
+							<a href="/plugins/ctfd_glowworm/admin/environments?page={{ curr_page - 1 }}">
 								&lt;&lt;&lt;
 							</a>
 						{% endif %}
 						{% for page in range(1, pages + 1) %}
 							{% if curr_page != page %}
-								<a href="/plugins/ctfd-glowworm/admin/environments?page={{ page }}">{{ page }}</a>
+								<a href="/plugins/ctfd_glowworm/admin/environments?page={{ page }}">{{ page }}</a>
 							{% else %}
 								<b>{{ page }}</b>
 							{% endif %}
 						{% endfor %}
 						{% if curr_page != pages %}
-							<a href="/plugins/ctfd-glowworm/admin/environments?page={{ curr_page + 1 }}">
+							<a href="/plugins/ctfd_glowworm/admin/environments?page={{ curr_page + 1 }}">
 								&gt;&gt;&gt;
 							</a>
 						{% endif %}
@@ -131,6 +131,7 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="{{ url_for('views.themes', theme='admin', path='js/jquery.min.js') }}" type="text/javascript"></script>
     <script>
         $(".remove-environment").click(function(e) {
             e.preventDefault();
@@ -148,7 +149,7 @@
               title: "Remove Env",
               body: body,
               success: function() {
-                CTFd.fetch("/plugins/ctfd-glowworm/admin/env", {
+                CTFd.fetch("/plugins/ctfd_glowworm/admin/env", {
                   method: "PATCH",
                   credentials: "same-origin",
                   headers: {
@@ -187,7 +188,7 @@
               title: "Build Env",
               body: body,
               success: function() {
-                CTFd.fetch("/plugins/ctfd-glowworm/admin/env", {
+                CTFd.fetch("/plugins/ctfd_glowworm/admin/env", {
                   method: "PATCH",
                   credentials: "same-origin",
                   headers: {
@@ -226,7 +227,7 @@
               title: "Run Env",
               body: body,
               success: function() {
-                CTFd.fetch("/plugins/ctfd-glowworm/admin/env", {
+                CTFd.fetch("/plugins/ctfd_glowworm/admin/env", {
                   method: "PATCH",
                   credentials: "same-origin",
                   headers: {
@@ -265,7 +266,7 @@
               title: "Check Env",
               body: body,
               success: function() {
-                CTFd.fetch("/plugins/ctfd-glowworm/admin/env", {
+                CTFd.fetch("/plugins/ctfd_glowworm/admin/env", {
                   method: "PATCH",
                   credentials: "same-origin",
                   headers: {
@@ -298,7 +299,7 @@
       title: "Init competition",
       body: "Are you sure you want to Init competition",
       success: function() {
-        CTFd.fetch("/plugins/ctfd-glowworm/admin/init", {
+        CTFd.fetch("/plugins/ctfd_glowworm/admin/init", {
           method: "PATCH"
         })
           .then(function(response) {
@@ -328,7 +329,7 @@
       title: "Remove competition",
       body: "Are you sure you want to Remove competition",
       success: function() {
-        CTFd.fetch("/plugins/ctfd-glowworm/admin/remove", {
+        CTFd.fetch("/plugins/ctfd_glowworm/admin/remove", {
           method: "PATCH"
         })
           .then(function(response) {

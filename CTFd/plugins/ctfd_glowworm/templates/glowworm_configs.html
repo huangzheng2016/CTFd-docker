@@ -14,10 +14,10 @@
 					<a class="nav-link rounded-0 active" href="#competition" role="tab" data-toggle="tab">Competition Settings</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link rounded-0" href="/plugins/ctfd-glowworm/admin/environments">Environments Console</a>
+					<a class="nav-link rounded-0" href="/plugins/ctfd_glowworm/admin/environments">Environments Console</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link rounded-0" href="/plugins/ctfd-glowworm/admin/containers">Containers Console</a>
+					<a class="nav-link rounded-0" href="/plugins/ctfd_glowworm/admin/containers">Containers Console</a>
 				</li>
 			</ul>
 		</div>
@@ -39,50 +39,49 @@
 	</div>
 </div>
 {% endblock %}
-
 {% block scripts %}
+<script src="{{ url_for('views.themes', theme='admin', path='js/jquery.min.js') }}" type="text/javascript"></script>
 <script>
   function update_configs(obj) {
-          var target = "/plugins/ctfd-glowworm/admin/settings";
-          var method = "PATCH";
+	var target = "/plugins/ctfd_glowworm/admin/settings";
+	var method = "PATCH";
 
-          var params = {};
+	var params = {};
 
-          Object.keys(obj).forEach(function(x) {
-            if (obj[x] === "true") {
-              params[x] = true;
-            } else if (obj[x] === "false") {
-              params[x] = false;
-            } else {
-              params[x] = obj[x];
-            }
-          });
+	Object.keys(obj).forEach(function(x) {
+	if (obj[x] === "true") {
+	  params[x] = true;
+	} else if (obj[x] === "false") {
+	  params[x] = false;
+	} else {
+	  params[x] = obj[x];
+	}
+	});
 
-          params["mode"] = $("#set-deploy-select").find("option:selected").val();
+	params["mode"] = $("#set-deploy-select").find("option:selected").val();
 
-          CTFd.fetch(target, {
-            method: method,
-            credentials: "same-origin",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(params)
-          })
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(data) {
-              window.location.reload();
-            });
-        }
-
-        $(function() {
-          $(".config-section > form:not(.form-upload)").submit(function(e) {
-            e.preventDefault();
-            var obj = $(this).serializeJSON();
-            update_configs(obj);
-          });
-        });
+	CTFd.fetch(target, {
+	method: method,
+	credentials: "same-origin",
+	headers: {
+	  Accept: "application/json",
+	  "Content-Type": "application/json"
+	},
+	body: JSON.stringify(params)
+	})
+	.then(function(response) {
+	return response.json();
+	})
+	.then(function(data) {
+	window.location.reload();
+	});
+  }
+	$(function() {
+	  $(".config-section > form:not(.form-upload)").submit(function(e) {
+		e.preventDefault();
+		var obj = $(this).serializeJSON();
+		update_configs(obj);
+	  });
+	});
 </script>
 {% endblock %}

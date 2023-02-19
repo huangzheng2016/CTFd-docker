@@ -46,7 +46,7 @@ class GlowwormChallenge(BaseChallenge):
         __name__,
         template_folder="templates",
         static_folder="assets",
-        url_prefix="/plugins/ctfd-glowworm"
+        url_prefix="/plugins/ctfd_glowworm"
     )
 
     @staticmethod

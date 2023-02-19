@@ -35,7 +35,7 @@ def write_to_api(uuid_key, name, timestamp, key):
     get = "http://{}:4000".format(gateway)
     rq = request.get(get)
     token = "".join(re.findall("var csrf_nonce = \"(.*)\"", rq.text))
-    url = "http://{}:4000/plugins/ctfd-glowworm/flag".format(gateway)
+    url = "http://{}:4000/plugins/ctfd_glowworm/flag".format(gateway)
     data = {
         'key': key,
         'uuid': uuid_key,
