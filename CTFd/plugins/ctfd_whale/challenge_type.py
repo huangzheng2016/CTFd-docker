@@ -17,7 +17,7 @@ class DynamicValueDockerChallenge(BaseChallenge):
     name = "dynamic_docker_whale"  # Name of a challenge type
     # Blueprint used to access the static_folder directory.
     blueprint = Blueprint(
-        "ctfd_whale-challenge",
+        "ctfd-whale-challenge",
         __name__,
         template_folder="templates",
         static_folder="assets",

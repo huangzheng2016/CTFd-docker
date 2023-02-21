@@ -1,12 +1,17 @@
 {% extends "admin/challenges/update.html" %}
 
-{% block plugin_additions %}
+{% block connection_info %}
+{% endblock %}
+
+{% block value %}
 <div class="form-group">
 	<label for="deployment">Deployment Type<br>
 	</label>
 	<select class="form-control custom-select" name="deployment">
-		<option value="single-docker-compose" {% if challenge.deployment == "single-docker-compose" %}selected{% endif %}>Single-docker-compose</option>
-		<option value="single-docker-swarm" {% if challenge.deployment == "single-docker-swarm" %}selected{% endif %}>Single-docker-swarm</option>
+		<option value="single-docker-compose" {% if challenge.deployment==
+		"single-docker-compose" %}selected{% endif %}>Single-docker-compose</option>
+		<option value="single-docker-swarm" {% if challenge.deployment==
+		"single-docker-swarm" %}selected{% endif %}>Single-docker-swarm</option>
 	</select>
 </div>
 <div class="form-group">
@@ -29,23 +34,12 @@
 	<input type="text" class="form-control" name="redirect_port" placeholder="Enter frp port of container" value="{{ challenge.redirect_port }}">
 </div>
 <div class="form-group">
-	<label for="dirname">Dirname<br>
-		<small class="form-text text-muted">
-			The name of your challenge dirname
-		</small>
-	</label>
-	<input type="text" class="form-control chal-name" name="dirname" value="{{ challenge.dirname }}">
-</div>
-<div class="form-group">
 	<label for="value" class="control-label">Flag Type</label>
 	<select class="form-control custom-select" name="flag_type">
 		<option value="dynamic" {% if challenge.flag_type == "dynamic" %}selected{% endif %}>Dynamic</option>
 		<option value="static" {% if challenge.flag_type == "static" %}selected{% endif %}>Static</option>
 	</select>
 </div>
-{% endblock %}
-
-{% block value %}
 <div class="form-group">
 	<label for="value">Current Value<br>
 		<small class="form-text text-muted">

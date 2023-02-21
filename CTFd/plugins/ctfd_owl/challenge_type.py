@@ -27,7 +27,7 @@ class DynamicCheckValueChallenge(BaseChallenge):
     
     # Blueprint used to access the static_folder directory.
     blueprint = Blueprint(
-        "ctfd_owl-challenge",
+        "ctfd-owl-challenge",
         __name__,
         template_folder="templates",
         static_folder="assets",

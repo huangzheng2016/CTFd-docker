@@ -5,7 +5,7 @@ from CTFd.models import (
 import datetime
 
 class DynamicCheckChallenge(Challenges):
-    __mapper_args__ = {"polymorphic_identity": "dynamic_check_docker"}
+    __mapper_args__ = {"polymorphic_identity": "dynamic_docker_owl"}
     id = db.Column(None, db.ForeignKey("challenges.id",
                                        ondelete="CASCADE"), primary_key=True)
 

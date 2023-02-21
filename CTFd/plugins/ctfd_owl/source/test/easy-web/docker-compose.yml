@@ -32,5 +32,5 @@ services:
 networks:
     # 配置docker network
     net: 
-      external: 
-         name: bitnsc_frp_containers
+      external:
+          name: ctfd_containers

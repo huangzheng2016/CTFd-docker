@@ -7,7 +7,7 @@
 </div>
 {% endblock %}
 
-{% block plugin_additions %}
+{% block value %}
 <div class="form-group">
 	<label for="deployment" class="control-label">Deployment Type</label>
 	<select class="form-control custom-select" name="deployment">
@@ -49,9 +49,6 @@
 		<option value="static">Static</option>
 	</select>
 </div>
-{% endblock %}
-
-{% block value %}
 <div class="form-group">
 	<label for="value">Initial Value<br>
 		<small class="form-text text-muted">
@@ -82,5 +79,5 @@
 {% endblock %}
 
 {% block type %}
-<input type="hidden" value="dynamic_check_docker" name="type" id="chaltype">
+<input type="hidden" value="dynamic_docker_owl" name="type" id="chaltype">
 {% endblock %}
