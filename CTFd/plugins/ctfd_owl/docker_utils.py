@@ -32,13 +32,16 @@ class DockerUtils:
             dirname = challenge.dirname.split("/")[1]
             prefix = configs.get("docker_flag_prefix")
             name = "{}_user{}_{}".format(prefix, user_id, dirname).lower()
-            problem_docker_run_dir = os.environ['PROBLEM_DOCKER_RUN_FOLDER'] 
+            # TODO: UNKNOW ENVIRON
+            problem_docker_run_dir = os.environ['PROBLEM_DOCKER_RUN_FOLDER']
             dname = os.path.join(problem_docker_run_dir, name)
-            min_port, max_port = int(configs.get("frp_direct_port_minimum")), int(configs.get("frp_direct_port_maximum"))
+            min_port, max_port = int(configs.get("frp_direct_port_minimum")), int(
+                configs.get("frp_direct_port_maximum"))
             all_container = DBUtils.get_all_container()
-            port, ports_list = random.randint(min_port, max_port), [ _.port for _ in all_container]
+            port, ports_list = random.randint(min_port, max_port), [_.port for _ in all_container]
             while port in ports_list:
                 port = random.randint(min_port, max_port)
+
         except Exception as e:
             log("owl",
                 'Stdout: {out}\nStderr: {err}',

@@ -1,7 +1,0 @@
-<?php 
-$gg = $_GET['gg'];
-echo base64_encode($gg);
-$str = 'flag';
-if($gg == base64_encode($str))
-echo 'Well done! Next!';
-?>

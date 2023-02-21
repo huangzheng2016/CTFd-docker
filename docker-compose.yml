@@ -12,6 +12,7 @@ services:
       - REDIS_URL=redis://cache:6379
       - WORKERS=1
       - LOG_FOLDER=/var/log/CTFd
+      - PROBLEM_DOCKER_RUN_FOLDER=/tmp
       - ACCESS_LOG=-
       - ERROR_LOG=-
       - REVERSE_PROXY=true
