@@ -2,14 +2,15 @@
 
 {% block description %}
 {{ challenge.html }}
-{% endblock %}
-{% block input %}
 <div class="card col-md-12"
      style="width: 100%; border: 1px solid #c9cacc; margin: 1rem 0 1rem 0; border-radius: .25rem !important;">
     <div class="card-body text-center" id="owl-panel">
         <h5 class="card-title">Instance Info</h5>
     </div>
 </div>
+{% endblock %}
+
+{% block input %}
 <input id="challenge-id" class="challenge-id" type="hidden" value="{{ challenge.id }}">
 <input id="challenge-input" class="challenge-input" type="text" name="answer" placeholder="Flag"/>
 {% endblock %}
