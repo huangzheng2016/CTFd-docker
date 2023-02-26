@@ -17,7 +17,7 @@ services:
       - ERROR_LOG=-
       - REVERSE_PROXY=true
       - CTFD_URL=ctfd.test.com
-      - DIRECT_URL=dircet.test.com
+      - DIRECT_URL=direct.test.com
       - DYNAMIC_URL=dynamic.test.com
     volumes:
       - .data/CTFd/logs:/var/log/CTFd
