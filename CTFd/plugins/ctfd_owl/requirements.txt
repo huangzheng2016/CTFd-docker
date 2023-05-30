@@ -1,1 +1,2 @@
-docker-compose
+#docker-compose
+# The version of docker-compose in pypi is too low

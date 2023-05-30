@@ -12,6 +12,8 @@ RUN apt-get update \
         libffi-dev \
         libssl-dev \
         git \
+        docker-compose \
+# ADD docker-compose for CTFd-owl
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
