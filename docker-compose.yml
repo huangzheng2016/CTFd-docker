@@ -23,6 +23,7 @@ services:
       - .data/CTFd/logs:/var/log/CTFd
       - .data/CTFd/uploads:/var/uploads
       - .:/opt/CTFd
+      #- .:/opt/CTFd:ro
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - db
@@ -31,7 +32,7 @@ services:
         internal:
 
   nginx:
-    image: nginx:1.17
+    image: nginx:stable
     restart: always
     volumes:
       - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
@@ -56,6 +57,7 @@ services:
       - .data/mysql:/var/lib/mysql
     networks:
         internal:
+
     command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
 
   cache:
