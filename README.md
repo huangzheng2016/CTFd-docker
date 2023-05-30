@@ -10,6 +10,7 @@
 在Ubuntu20.04、Ubuntu22.04下完成过测试
 
 ```
+sudo apt install git -y
 git clone https://github.com/huangzheng2016/CTFd-docker CTFd
 sudo sh CTFd/install.sh
 ```
