@@ -62,3 +62,6 @@ docker-compose -f CTFd/docker-compose.yml exec ctfd python manage.py set_config 
 127.0.0.1 direct.test.com
 127.0.0.1 dynamic.test.com
 ```
+
+2023.5.30
+>更新了CTFd 3.5.2版本，修复了docker-compose在swarm中版本过低造成的容器无法启动bug
