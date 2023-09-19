@@ -1,7 +1,9 @@
 FROM python:3.9-slim-buster as build
 
 #更换国内源
-ADD sources.list /etc/apt/
+#仓库缺失可能导致动态链接库出现问题
+#ADD sources.list /etc/apt/
+
 WORKDIR /opt/CTFd
 
 RUN mkdir -p /opt/CTFd /var/log/CTFd /var/uploads
