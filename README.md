@@ -65,3 +65,6 @@ docker-compose -f CTFd/docker-compose.yml up -d
 
 2023.5.30
 >更新了CTFd 3.5.2版本，修复了docker-compose在swarm中版本过低造成的容器无法启动bug
+
+2023.10.8
+>更新了在最新的pip-docker库下依赖冲突的问题，更新了pip对pep517的支持
