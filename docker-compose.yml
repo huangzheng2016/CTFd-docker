@@ -4,8 +4,8 @@ services:
     build: .
     user: root
     restart: always
-    ports:
-      - "8000:8000"
+    #ports:
+    #  - "8000:8000"
     environment:
       - UPLOAD_FOLDER=/var/uploads
       - DATABASE_URL=mysql+pymysql://ctfd:ctfd@db/ctfd

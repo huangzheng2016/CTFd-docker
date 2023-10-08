@@ -1,8 +1,6 @@
 FROM python:3.9-slim-buster as build
 
-#更换国内源
-#仓库缺失可能导致动态链接库出现问题
-#ADD sources.list /etc/apt/
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
 
 WORKDIR /opt/CTFd
 
@@ -24,7 +22,8 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY . /opt/CTFd
 
-RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ --no-cache-dir \
+RUN pip install --upgrade pip \
+    pip install --no-cache-dir -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ --use-pep517 --no-cache-dir \
     && for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \
             pip install --no-cache-dir -r "$d/requirements.txt" -i https://pypi.mirrors.ustc.edu.cn/simple/ --no-cache-dir;\
@@ -33,6 +32,9 @@ RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.mirrors.ustc.
 
 
 FROM python:3.9-slim-buster as release
+
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+
 WORKDIR /opt/CTFd
 
 # hadolint ignore=DL3008
@@ -45,8 +47,6 @@ RUN apt-get update \
 
 COPY --chown=1001:1001 . /opt/CTFd
 
-RUN chmod +x /opt/CTFd/sed.sh & sh sed.sh
-
 RUN useradd \
     --no-log-init \
     --shell /bin/bash \
@@ -57,8 +57,9 @@ RUN useradd \
     && chmod +x /opt/CTFd/docker-entrypoint.sh
 
 COPY --chown=1001:1001 --from=build /opt/venv /opt/venv
+
 ENV PATH="/opt/venv/bin:$PATH"
 
 USER 1001
 EXPOSE 8000
-ENTRYPOINT ["/opt/CTFd/docker-entrypoint.sh"]
+CMD ["bash","/opt/CTFd/docker-entrypoint.sh"]
