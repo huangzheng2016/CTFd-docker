@@ -71,3 +71,4 @@ docker-compose -f CTFd/docker-compose.yml up -d
 
 2023.10.8
 >更新了在最新的pip-docker库下依赖冲突的问题，更新了pip对pep517的支持
+>更新CTFd 3.6.0版本，原生支持多语言
