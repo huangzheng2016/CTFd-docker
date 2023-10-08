@@ -7,7 +7,7 @@
 
 ## 快速安装
 
-在Ubuntu20.04、Ubuntu22.04下完成过测试
+在Ubuntu20.04、Ubuntu22.04、Kali 23.3下完成过测试
 
 ```
 sudo apt install git -y
@@ -67,8 +67,11 @@ docker-compose -f CTFd/docker-compose.yml up -d
 ```
 
 2023.5.30
->更新了CTFd 3.5.2版本，修复了docker-compose在swarm中版本过低造成的容器无法启动bug
+>更新了CTFd 3.5.2版本
+>
+>修复了docker-compose在swarm中版本过低造成的容器无法启动bug
 
 2023.10.8
 >更新了在最新的pip-docker库下依赖冲突的问题，更新了pip对pep517的支持
+>
 >更新CTFd 3.6.0版本，原生支持多语言
