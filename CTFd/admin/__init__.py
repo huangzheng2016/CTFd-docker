@@ -1,7 +1,7 @@
 import csv  # noqa: I001
 import datetime
-from io import StringIO
 import os
+from io import StringIO
 
 from flask import Blueprint, abort
 from flask import current_app as app
@@ -48,7 +48,7 @@ from CTFd.models import (
     db,
 )
 from CTFd.utils import config as ctf_config
-from CTFd.utils import get_config, set_config
+from CTFd.utils import get_app_config, get_config, set_config
 from CTFd.utils.csv import dump_csv, load_challenges_csv, load_teams_csv, load_users_csv
 from CTFd.utils.decorators import admins_only
 from CTFd.utils.exports import background_import_ctf
@@ -120,7 +120,7 @@ def export_ctf():
     backup = export_ctf_util()
     ctf_name = ctf_config.ctf_name()
     day = datetime.datetime.now().strftime("%Y-%m-%d_%T")
-    full_name = u"{}.{}.zip".format(ctf_name, day)
+    full_name = "{}.{}.zip".format(ctf_name, day)
     return send_file(
         backup, cache_timeout=-1, as_attachment=True, attachment_filename=full_name
     )
@@ -166,8 +166,8 @@ def export_csv():
     return send_file(
         output,
         as_attachment=True,
-        cache_timeout=-1,
-        attachment_filename="{name}-{table}.csv".format(
+        max_age=-1,
+        download_name="{name}-{table}.csv".format(
             name=ctf_config.ctf_name(), table=table
         ),
     )
@@ -190,7 +190,14 @@ def config():
     except ValueError:
         pass
 
-    return render_template("admin/config.html", themes=themes, **configs)
+    force_html_sanitization = get_app_config("HTML_SANITIZATION")
+
+    return render_template(
+        "admin/config.html",
+        themes=themes,
+        **configs,
+        force_html_sanitization=force_html_sanitization
+    )
 
 
 @admin.route("/admin/reset", methods=["GET", "POST"])
