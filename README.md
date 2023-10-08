@@ -48,13 +48,13 @@ docker-compose -f CTFd/docker-compose.yml up -d
 
 2023.2.18
 >移除中文包
-
+>
 >将CTFd版本更新至3.5.1
-
+>
 >更新一键部署的脚本
-
+>
 >在部署时可以通过更改Docker_compose自定义反代域名
-
+>
 >一些安全性的更新
 
 2023.2.20
