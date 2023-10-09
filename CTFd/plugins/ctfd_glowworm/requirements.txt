@@ -1,0 +1,2 @@
+flask-apscheduler==1.12.4
+flask-redis==0.4.0
