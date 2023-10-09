@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /hello/
-Disallow: /api/uploadarticle/
-Disallow: /api/downloadarticle/
