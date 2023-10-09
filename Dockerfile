@@ -22,11 +22,11 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY . /opt/CTFd
 
-RUN pip install --upgrade pip -i https://pypi.mirrors.ustc.edu.cn/simple/ --use-pep517 --no-cache-dir \
-    pip install --no-cache-dir -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ --use-pep517 --no-cache-dir \
+RUN pip install --upgrade pip -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --use-pep517 --no-cache-dir \
+    pip install --no-cache-dir -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --use-pep517 --no-cache-dir \
     && for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \
-            pip install --no-cache-dir -r "$d/requirements.txt" -i https://pypi.mirrors.ustc.edu.cn/simple/ --use-pep517  --no-cache-dir;\
+            pip install --no-cache-dir -r "$d/requirements.txt" -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --use-pep517 --no-cache-dir;\
         fi; \
     done;
 
