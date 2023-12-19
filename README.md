@@ -9,9 +9,15 @@
 
 在Ubuntu20.04、Ubuntu22.04、Kali 23.3下完成过测试
 
+你需要修改docker-compose.yml中的CTFD_URL、DIRECT_URL、DYNAMIC_URL，并在DNS服务器上做解析
+
+脚本第一次执行时会自动初始化配置，初始化后将无法自动修改，你需要手动根据sed.sh脚本修改相应的值或后台配置
+
 ```
 sudo apt install git -y
 git clone https://github.com/huangzheng2016/CTFd-docker CTFd
+vi CTFd/docker-compose.yml
+#修改CTFD_URL、DIRECT_URL、DYNAMIC_URL，并在DNS服务器上做解析
 sudo sh CTFd/install.sh
 ```
 
@@ -75,3 +81,6 @@ docker-compose -f CTFd/docker-compose.yml up -d
 >更新了在最新的pip-docker库下依赖冲突的问题，更新了pip对pep517的支持
 >
 >更新CTFd 3.6.0版本，原生支持多语言
+
+2023.12.20
+>core-beta主题暂不支持（等官方beta版搞完再做适配）
