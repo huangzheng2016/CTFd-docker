@@ -1,6 +1,6 @@
 #!/bin/bash
-UUID=$(cat /proc/sys/kernel/random/uuid)
-#UUID=YOUR_TOKEN
+#UUID=$(cat /proc/sys/kernel/random/uuid)
+UUID=YOUR_TOKEN
 
 sed -i "s/dynamic.test.com/$DYNAMIC_URL/g" /opt/CTFd/CTFd/plugins/ctfd_whale/utils/setup.py
 sed -i "s/direct.test.com/$DIRECT_URL/g" /opt/CTFd/CTFd/plugins/ctfd_whale/utils/setup.py
