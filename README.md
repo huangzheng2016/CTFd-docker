@@ -7,9 +7,17 @@
 
 ## 快速安装
 
-在Ubuntu20.04、Ubuntu22.04、Kali 23.3下完成过测试
+在Ubuntu20.04、Ubuntu22.04、Kali 23.3、macOS 14.2+orbStack下完成过测试
 
 你需要修改docker-compose.yml中的CTFD_URL、DIRECT_URL、DYNAMIC_URL，并在DNS服务器上做解析
+
+>如果你要在本机进行测试，你可以使用如下host设置
+
+```
+127.0.0.1 ctfd.test.com
+127.0.0.1 direct.test.com
+127.0.0.1 dynamic.test.com
+```
 
 脚本第一次执行时会自动初始化配置，初始化后将无法自动修改，你需要手动根据sed.sh脚本修改相应的值或后台配置
 
@@ -38,49 +46,7 @@ docker-compose -f CTFd/docker-compose.yml up -d
 
 ## 更新日志
 
-2022.3.27
->初版提交
-
-2022.3.28
-
->更新Frp服务器并重载404页面
-
-2022.4.4
-
->更新Frpc服务器，并且增加对direct模式下端口映射的支持
-
-2022.11.17
->更新Stable源 
-
-2023.2.18
->移除中文包
->
->将CTFd版本更新至3.5.1
->
->更新一键部署的脚本
->
->在部署时可以通过更改Docker_compose自定义反代域名
->
->一些安全性的更新
-
-2023.2.20
->如果你要在本机进行测试，你可以使用如下host设置
-
-```
-127.0.0.1 ctfd.test.com
-127.0.0.1 direct.test.com
-127.0.0.1 dynamic.test.com
-```
-
-2023.5.30
->更新了CTFd 3.5.2版本
->
->修复了docker-compose在swarm中版本过低造成的容器无法启动bug
-
-2023.10.8
->更新了在最新的pip-docker库下依赖冲突的问题，更新了pip对pep517的支持
->
->更新CTFd 3.6.0版本，原生支持多语言
-
-2023.12.20
+2024.1.19
+>修改默认主题为core
 >core-beta主题暂不支持（等官方beta版搞完再做适配）
+
