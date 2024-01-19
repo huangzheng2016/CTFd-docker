@@ -48,5 +48,6 @@ docker-compose -f CTFd/docker-compose.yml up -d
 
 2024.1.19
 >修改默认主题为core
+>
 >core-beta主题暂不支持（等官方beta版搞完再做适配）
 
